@@ -1,0 +1,15 @@
+package com.company;
+
+public class TipKupca {
+    private String ime;
+    private String popust;
+    private String trazeni_broj_bodova;
+
+    @Override
+    public String toString() {
+        return "TipKupca: " +
+                "zove se: " + ime + '\'' +
+                ", ima ostvareni popust: " + popust + '\'' +
+                ", a trazeni broj bodova je: " + trazeni_broj_bodova + '\'' + ".\n";
+    }
+}
