@@ -4,7 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.persistence.*;
+import java.io.Serializable;
 
+<<<<<<< Updated upstream:src/main/java/com/company/entity/Korisnik.java
 enum Uloga{ADMIN, MENADZER, DOSTAVLJAC, KUPAC};
 enum Pol{MUSKI, ZENSKI};
 
@@ -31,6 +34,45 @@ public class Korisnik implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     @Column
     protected Uloga uloga;
+=======
+enum uloga{Admin, Menadzer, Dostavljac, Kupac};
+enum pol{MUSKI, ZENSKI};
+@Entity
+public class Korisnik implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerrationType.IDENTITY)
+    private Long idKorisnika;
+
+    @Column
+    protected String korisnicko_ime;
+
+    @Column
+    protected String lozinka;
+
+    @Column
+    protected String ime;
+
+    @Column
+    protected String prezime;
+
+    @Column
+    protected pol p;
+    @Enumerated(EnumType.ORDINAL)
+
+    @Column
+    protected Date datum_rodjenja;
+    @Enumerated(EnumType.ORDINAL)
+
+    public Korisnik(){}
+
+    public java.lang.Long getIdKorisnika() {
+        return idKorisnika;
+    }
+
+    public void setIdKorisnika(java.lang.Long idKorisnika) {
+        this.idKorisnika = idKorisnika;
+    }
+>>>>>>> Stashed changes:korisnik.java
 
     public Korisnik() {
     }
