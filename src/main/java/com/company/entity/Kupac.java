@@ -7,7 +7,7 @@ public class Kupac extends Korisnik{
     private int Broj_sakupljenih_bodova;
     private String tip;
 
-    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, pol p, Date datum_rodjenja) {
+    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, Pol p, Date datum_rodjenja) {
         super(korisnicko_ime, lozinka, ime, prezime, p, datum_rodjenja);
     }
 

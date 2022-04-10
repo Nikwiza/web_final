@@ -2,19 +2,29 @@ package com.company.entity;
 
 // Klasa koja predstavlja artikal
 
-public class Artikal {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+public class Artikal implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected long idArtikla;
+    @Column
     protected String naziv;
+    @Column
     protected float cena;
+    @Column
     protected String tip;
+    @Column
     protected float kolicina;
+    @Column
     protected String opis;
 
+
     public Artikal() {
-        this.naziv = "Undefined";
-        this.cena = 0;
-        this.tip = "Undefined";
-        this.kolicina = 0;
-        this.opis = "Undefined";
+
     }
 
     public Artikal(String naziv, float cena, String tip, float kolicina, String opis) {
@@ -23,6 +33,14 @@ public class Artikal {
         this.tip = tip;
         this.kolicina = kolicina;
         this.opis = opis;
+    }
+
+    public long getIdArtikla() {
+        return idArtikla;
+    }
+
+    public void setIdArtikla(long idArtikla) {
+        this.idArtikla = idArtikla;
     }
 
     public String getNaziv() {

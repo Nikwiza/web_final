@@ -1,26 +1,55 @@
 package com.company.entity;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-enum uloga{Admin, Menadzer, Dostavljac, Kupac};
-enum pol{MUSKI, ZENSKI};
-public class Korisnik {
-    private String naziv;
-    protected String korisnicko_ime;
-    protected String lozinka;
-    protected String ime;
-    protected String prezime;
-    protected pol p;
-    protected Date datum_rodjenja;
+enum Uloga{ADMIN, MENADZER, DOSTAVLJAC, KUPAC};
+enum Pol{MUSKI, ZENSKI};
 
-    public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, pol p, Date datum_rodjenja) {
+@Entity
+public class Korisnik implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idKorisnika;
+
+
+    @Column
+    protected String korisnicko_ime;
+    @Column
+    protected String lozinka;
+    @Column
+    protected String ime;
+    @Column
+    protected String prezime;
+    @Enumerated(EnumType.ORDINAL)
+    @Column
+    protected Pol pol;
+    @Column
+    protected Date datum_rodjenja;
+    @Enumerated(EnumType.ORDINAL)
+    @Column
+    protected Uloga uloga;
+
+    public Korisnik() {
+    }
+
+    public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, Pol p, Date datum_rodjenja) {
         this.korisnicko_ime = korisnicko_ime;
         this.lozinka = lozinka;
         this.ime = ime;
         this.prezime = prezime;
-        this.p = p;
+        this.pol = p;
         this.datum_rodjenja = datum_rodjenja;
+    }
+
+    public Long getIdKorisnika() {
+        return idKorisnika;
+    }
+
+    public void setIdKorisnika(Long idKorisnika) {
+        this.idKorisnika = idKorisnika;
     }
 
     public String getKorisnicko_ime() {
@@ -31,9 +60,6 @@ public class Korisnik {
         this.korisnicko_ime = korisnicko_ime;
     }
 
-    public String getNaziv() {
-        return naziv;
-    }
 
     public String getLozinka() {
         return lozinka;
@@ -47,8 +73,8 @@ public class Korisnik {
         return prezime;
     }
 
-    public pol getP() {
-        return p;
+    public Pol getPol() {
+        return pol;
     }
 
     public Date getDatum_rodjenja() {
@@ -67,12 +93,12 @@ public class Korisnik {
         this.prezime = prezime;
     }
 
-    public void setP(pol p) {
-        this.p = p;
+    public void setPol(Pol pol) {
+        this.pol = pol;
     }
 
     public void setDatum_rodjenja(Date datum_rodjenja) {
-        datum_rodjenja = datum_rodjenja;
+        this.datum_rodjenja = datum_rodjenja;
     }
 
     @Override
@@ -82,7 +108,7 @@ public class Korisnik {
                 ", lozinka='" + lozinka + '\'' +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
-                ", p=" + p +
+                ", p=" + pol +
                 ", Datum_rodjenja=" + datum_rodjenja +
                 '}';
     }
