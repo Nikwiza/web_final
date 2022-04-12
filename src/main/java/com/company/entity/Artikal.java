@@ -11,21 +11,24 @@ public class Artikal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long idArtikla;
+
     @Column
     protected String naziv;
+
     @Column
     protected float cena;
+
     @Column
     protected String tip;
+
     @Column
     protected float kolicina;
+
     @Column
     protected String opis;
 
 
-    public Artikal() {
-
-    }
+    public Artikal() {}
 
     public Artikal(String naziv, float cena, String tip, float kolicina, String opis) {
         this.naziv = naziv;
