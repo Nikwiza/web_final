@@ -66,8 +66,6 @@ public class Komentar implements Serializable{
     }
 
     //dodatak za restoran(set, get, add, remove)
-
-
     public List<Restoran> getRestorani() {
         return this.restorani;
     }
