@@ -34,7 +34,6 @@ public class Korisnik implements Serializable {
 
     @Column
     protected Date datum_rodjenja;
-    @Enumerated(EnumType.ORDINAL)
 
     public Korisnik(){}
 
