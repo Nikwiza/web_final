@@ -20,10 +20,10 @@ public class Porudzbina implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long porudzbina_id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true) //uiid generator
     private UUID uuid;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}) //klasa kao stavka porudzbine kolicina porucenog, dodavanje kolicine
     @JoinTable(name="Artikli_u_porudzbini",
             joinColumns = {@JoinColumn(name="porudzbina_id")},
             inverseJoinColumns = {@JoinColumn(name = "idArtikla")})
