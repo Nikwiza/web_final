@@ -4,35 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b8eebb6-fe3f-4bac-a459-5fac9e2cefdc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Dostavljac.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Tipkupca.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/DostavljacRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/KomentarRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/KorisnikRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/KupacRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/LokacijaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/MenadzerRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/PorudzbinaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/RestoranRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/TipkupcaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/DemoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Artikal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Artikal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Funkcije.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Komentar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Komentar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Korisnik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Korisnik.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Kupac.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Kupac.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Lokacija.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Lokacija.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Menadzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Menadzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Porudzbina.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Porudzbina.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Restoran.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Restoran.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/repository/ArtikalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/ArtikalRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="9b8eebb6-fe3f-4bac-a459-5fac9e2cefdc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
