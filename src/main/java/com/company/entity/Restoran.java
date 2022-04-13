@@ -23,7 +23,7 @@ public class Restoran implements Serializable {
     @Column
     private String tip_restorana;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}) //one to many
     @JoinTable(name="Artikli_u_restoranima",
     joinColumns = {@JoinColumn(name="idRestorana")},
     inverseJoinColumns = {@JoinColumn(name = "idArtikla")})
