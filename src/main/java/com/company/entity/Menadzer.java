@@ -4,43 +4,34 @@ import java.util.Date;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ *
+ * This is a class that describes the manager
+ *
+ * */
+
 @Entity
-@NamedQuery(name = "Menadzer.findALL", query = "SELECT u FROM Menadzer m")
 
-public class Menadzer implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class Menadzer extends Korisnik implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idMenadzer;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "restoran_id", referencedColumnName = "idRestorana")
+    private Restoran restoran;
 
-    public Menadzer(){}
-
-    @Column
-    private String Restoran;
-
-    public int getIdMenadzer() {
-        return idMenadzer;
+    public Menadzer() {
+        super(Uloga.MENADZER);
     }
 
-    public void setIdMenadzer(int idMenadzer) {
-        this.idMenadzer = idMenadzer;
+    public Menadzer(String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Restoran restoran) {
+        super(korisnicko_ime, lozinka, ime, prezime, pol, datum_rodjenja, Uloga.MENADZER);
+        this.restoran = restoran;
     }
 
-    @OneToOne
-    @JoinColumn(name = "idKorisnik")
-    private Korisnik korisnik;
-
-    public Menadzer(String korisnicko_ime, String lozinka, String ime, String prezime, Pol p, Date datum_rodjenja) {
-        super(korisnicko_ime, lozinka, ime, prezime, p, datum_rodjenja);
+    public Restoran getRestoran() {
+        return restoran;
     }
 
-    public void setRestoran(String restoran) {
-        Restoran = restoran;
-    }
-
-    @Override
-    public String toString() {
-        return "Menadzer je zaduzen za restoran: " + Restoran + ".\n";
+    public void setRestoran(Restoran restoran) {
+        this.restoran = restoran;
     }
 }

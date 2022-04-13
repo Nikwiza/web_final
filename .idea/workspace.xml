@@ -1,17 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b8eebb6-fe3f-4bac-a459-5fac9e2cefdc" name="Changes" comment="" />
+    <list default="true" id="9b8eebb6-fe3f-4bac-a459-5fac9e2cefdc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Dostavljac.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Tipkupca.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/DostavljacRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/KomentarRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/KorisnikRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/KupacRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/LokacijaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/MenadzerRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/PorudzbinaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/RestoranRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/TipkupcaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/DemoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Artikal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Artikal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Funkcije.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Komentar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Komentar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Korisnik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Korisnik.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Kupac.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Kupac.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Lokacija.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Lokacija.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Menadzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Menadzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Porudzbina.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Porudzbina.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/entity/Restoran.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/entity/Restoran.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/repository/ArtikalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/repository/ArtikalRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectId" id="27X0f2VVjS6fsbO2uRp8xS78obq" />
   <component name="ProjectViewState">
@@ -21,6 +92,30 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.company.DemoApplication" />
+      <module name="demo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="web_final" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="web_final" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -32,5 +127,16 @@
       <updated>1649451230061</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

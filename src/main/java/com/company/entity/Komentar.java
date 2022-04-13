@@ -5,20 +5,25 @@ import javax.persistence.*;
 import java.rmi.UnexpectedException;
 import java.util.List;
 
-// Klasa koja predstavlja Komentare
+/**
+ *
+ * This is a class that describes a comment
+ *
+ * */
+
 @Entity
-@NamedQuery(name = "Komentar.findALL", query = "SELECT k FROM Komentar k")
+
 public class Komentar implements Serializable{
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idKomentar;
+    private Long idKomentar;
 
-    @Column
+    @OneToOne(mappedBy = "tip_kupca")
     private Kupac kupac;
 
-    @Column
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurant_comments", referencedColumnName = "idRestorana")
     private Restoran restoran;
 
     @Column
@@ -29,61 +34,12 @@ public class Komentar implements Serializable{
 
     public Komentar(){}
 
-    @OneToMany(mappedBy = "komentar")
-    private List<Kupac> kupci;
-
-    @OneToMany(mappedBy = "komentar")
-    private List<Restoran> restorani;
-
-    public int getIdKomentar() {
-        return this.idKomentar;
-    }
-
-    public void setIdKomentar(int idKomentar) {
+    public Komentar(Long idKomentar, Kupac kupac, Restoran restoran, String text, int ocena) {
         this.idKomentar = idKomentar;
-    }
-
-
-    //dodatak za kupca(set, get, add, remove)
-    public List<Kupac> getKupci() {
-        return this.kupci;
-    }
-
-    public void setKupac(List<Kupac> kupac) {
         this.kupac = kupac;
-    }
-
-    public Kupac addKupac(Kupac kupac){
-        getKupci().add(kupac);
-        kupac.setKomentar(this);
-        return kupac;
-    }
-
-    public Kupac removeKupac(Kupac kupac){
-        getKupci().remove(kupac);
-        kupac.setKomentar(null);
-        return kupac;
-    }
-
-    //dodatak za restoran(set, get, add, remove)
-    public List<Restoran> getRestorani() {
-        return this.restorani;
-    }
-
-    public void setRestorani(List<Restoran> restorani) {
-        this.restorani = restorani;
-    }
-
-    public Restoran addRestoran(Restoran restoran){
-        getRestorani().add(restoran);
-        restoran.setKomentar(this);
-        return resstoran;
-    }
-
-    public Restoran removeRestoran(Restoran restoran){
-        getRestorani().remove(restoran);
-        restoran.setKomentar(null);
-        return restoran;
+        this.restoran = restoran;
+        this.text = text;
+        this.ocena = ocena;
     }
 
     public Restoran getRestoran() {
@@ -106,10 +62,7 @@ public class Komentar implements Serializable{
         return ocena;
     }
 
-    public void setOcena(int ocena) throws UnexpectedException {
-        if(ocena > 5 || ocena < 1){
-            throw new UnexpectedException("Nije validna ocena");
-        }
+    public void setOcena(int ocena) {
         this.ocena = ocena;
     }
 }

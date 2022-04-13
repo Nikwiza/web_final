@@ -1,16 +1,21 @@
 package com.company.entity;
 
-// Klasa koja predstavlja artikal
 
 import javax.persistence.*;
 import java.io.Serializable;
+
+/**
+ *
+ * This is a class that describes an article
+ *
+ * */
 
 @Entity
 public class Artikal implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long idArtikla;
+    protected Long idArtikla;
 
     @Column
     protected String naziv;

@@ -3,14 +3,18 @@ package com.company.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ *
+ * This is a class that describes a location
+ *
+ * */
+
 @Entity
-@NamedQuery(name = "Lokacija.findALL", query = "SELECT u FROM Lokacija l")
 public class Lokacija implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idLokacija;
+    private Long idLokacija;
 
     @Column
     protected double geografska_duzina;
@@ -23,28 +27,17 @@ public class Lokacija implements Serializable {
 
     public Lokacija() {}
 
-    @OneToOne(mappedBy = "lokacija")
-    private Restoran restoran;
-
-    public Restoran getRestoran() {
-        return this.restoran;
-    }
-
-    public void setRestoran(Restoran restoran) {
-        this.restoran = restoran;
-    }
-
     public Lokacija(double geografska_duzina, double geografska_sirina, String adresa) {
         this.geografska_duzina = geografska_duzina;
         this.geografska_sirina = geografska_sirina;
         this.adresa = adresa;
     }
 
-    public int getIdLokacija(){
+    public Long getIdLokacija(){
         return this.idLokacija;
     }
 
-    public void setIdLokacija(int idLokacija){
+    public void setIdLokacija(Long idLokacija){
         this.idLokacija = idLokacija;
     }
 

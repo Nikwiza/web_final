@@ -2,122 +2,62 @@ package com.company.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 import java.io.Serializable;
 
-enum uloga{Admin, Menadzer, Dostavljac, Kupac};
-enum pol{MUSKI, ZENSKI};
+/**
+ *
+ * This is a class that describes the user
+ *
+ * */
+
+enum Uloga{ADMIN, MENADZER, DOSTAVLJAC, KUPAC};
+enum Pol{MUSKI, ZENSKI};
 @Entity
-@NamedQuery(name = "Korisnik.findALL", query = "SELECT u FROM Korisnik k")
 public class Korisnik implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerrationType.IDENTITY)
-    private Long idKorisnika;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long idKorisnika;
 
-    @Column
+    @Column(nullable = false, unique = true)
     protected String korisnicko_ime;
 
-    @Column
+    @Column(nullable = false)
     protected String lozinka;
 
-    @Column
+    @Column(nullable = false)
     protected String ime;
 
-    @Column
+    @Column(nullable = false)
     protected String prezime;
 
-    @Column
-    protected pol p;
     @Enumerated(EnumType.ORDINAL)
+    @Column
+    protected Pol pol;
 
+    @Temporal(TemporalType.DATE)
     @Column
     protected Date datum_rodjenja;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column
+    protected Uloga uloga;
+
     public Korisnik(){}
 
-    @OneToMany(mappedBy = "korisnik")
-    private List<Kupac> kupci;
-
-    @OneToMany(mappedBy = "korisnik")
-    private List<Dostavljac> dostavljaci;
-
-    @OneToMany(mappedBy = "korisnik")
-    private List<Menadzer> menadzeri;
-
-    //dodatak za dostavljaca(get, set, add, remove)
-    public List<Dostavljac> getDostavljaci() {
-        return this.dostavljaci;
+    public Korisnik(Uloga uloga){
+        this.uloga = uloga;
     }
 
-    public void setDostavljaci(List<Dostavljac> dostavljaci) {
-        this.dostavljaci = dostavljaci;
-    }
-
-    public Dostavljac addDostavljac(Dostavljac dostavljac){
-        getDostavljaci().add(dostavljac);
-        dostavljac.setKorisnik(this);
-        return dostavljac;
-    }
-
-    public Dostavljac removeDostavljac(Dostavljac dostavljac){
-        getDostavljaci().remove(dostavljac);
-        dostavljac.setKorisnik(null);
-        return dostavljac;
-    }
-
-    //dodatak za kupca(get, set, add, remove)
-
-
-    public List<Kupac> getKupci() {
-        return this.kupci;
-    }
-
-    public void setKupci(List<Kupac> kupci) {
-        this.kupci = kupci;
-    }
-
-    public Kupac addKupac(Kupac kupac){
-        getKupci().add(kupac);
-        kupac.setKorisnik(this);
-        return kupac;
-    }
-
-    public Kupac removeKupac(Kupac kupac){
-        getKupci().remove(kupac);
-        kupac.setKupac(null);
-        return kupac;
-    }
-
-    //dodatak za menadzera(get, set, add, remove)
-    public List<Menadzer> getMenadzeri() {
-        return this.menadzeri;
-    }
-
-    public void setMenadzeri(List<Menadzer> menadzeri) {
-        this.menadzeri = menadzeri;
-    }
-
-    public Menadzer addMenadzer(Menadzer menadzer){
-        getMenadzeri().add(menadzer);
-        menadzer.setKorisnik(this);
-        return menadzer;
-    }
-
-    public Menadzer removeMenadzer(Menadzer menadzer){
-        getMenadzeri().remove(menadzer);
-        menadzer.setKorisnik(null);
-        return menadzer;
-    }
-
-    public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, Pol p, Date datum_rodjenja) {
+    public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Uloga uloga) {
         this.korisnicko_ime = korisnicko_ime;
         this.lozinka = lozinka;
         this.ime = ime;
         this.prezime = prezime;
-        this.pol = p;
+        this.pol = pol;
         this.datum_rodjenja = datum_rodjenja;
+        this.uloga = uloga;
     }
 
     public Long getIdKorisnika() {
@@ -136,56 +76,65 @@ public class Korisnik implements Serializable {
         this.korisnicko_ime = korisnicko_ime;
     }
 
-
     public String getLozinka() {
         return lozinka;
-    }
-
-    public String getIme() {
-        return ime;
-    }
-
-    public String getPrezime() {
-        return prezime;
-    }
-
-    public Pol getPol() {
-        return pol;
-    }
-
-    public Date getDatum_rodjenja() {
-        return datum_rodjenja;
     }
 
     public void setLozinka(String lozinka) {
         this.lozinka = lozinka;
     }
 
+    public String getIme() {
+        return ime;
+    }
+
     public void setIme(String ime) {
         this.ime = ime;
+    }
+
+    public String getPrezime() {
+        return prezime;
     }
 
     public void setPrezime(String prezime) {
         this.prezime = prezime;
     }
 
+    public Pol getPol() {
+        return pol;
+    }
+
     public void setPol(Pol pol) {
         this.pol = pol;
+    }
+
+    public Date getDatum_rodjenja() {
+        return datum_rodjenja;
     }
 
     public void setDatum_rodjenja(Date datum_rodjenja) {
         this.datum_rodjenja = datum_rodjenja;
     }
 
+    public Uloga getUloga() {
+        return uloga;
+    }
+
+    public void setUloga(Uloga uloga) {
+        this.uloga = uloga;
+    }
+
     @Override
     public String toString() {
         return "Korisnik{" +
-                "Korisnicko_ime='" + korisnicko_ime + '\'' +
+                "idKorisnika=" + idKorisnika +
+                ", korisnicko_ime='" + korisnicko_ime + '\'' +
                 ", lozinka='" + lozinka + '\'' +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
-                ", p=" + pol +
-                ", Datum_rodjenja=" + datum_rodjenja +
+                ", pol=" + pol +
+                ", datum_rodjenja=" + datum_rodjenja +
+                ", uloga=" + uloga +
                 '}';
     }
 }

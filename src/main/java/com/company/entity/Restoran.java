@@ -1,16 +1,21 @@
 package com.company.entity;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
-@Entity
-@NamedQuery(name = "Restoran.findALL", query = "SELECT r FROM Restoran r")
-public class Restoran implements Serializable {
-    private static final long serialVersionUID = 1L;
+/**
+ *
+ * This is a class that describes the restaurant
+ *
+ * */
 
+@Entity
+public class Restoran implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idLokacija;
+    private Long idRestorana;
 
     @Column
     private String naziv;
@@ -18,28 +23,31 @@ public class Restoran implements Serializable {
     @Column
     private String tip_restorana;
 
-    @Column
-    private ArrayList<Artikal> artikli;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name="Artikli_u_restoranima",
+    joinColumns = {@JoinColumn(name="idRestorana")},
+    inverseJoinColumns = {@JoinColumn(name = "idArtikla")})
+    private Set<Artikal> artikli = new HashSet<>();
 
-    public Lokacija(){}
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idLokacija")
     private Lokacija lokacija;
 
-    public Restoran(String naziv, String tip_restorana, ArrayList<Artikal> artikli, Lokacija lokacija) {
+    public Restoran(){}
+
+    public Restoran(String naziv, String tip_restorana, Set<Artikal> artikli, Lokacija lokacija) {
         this.naziv = naziv;
         this.tip_restorana = tip_restorana;
         this.artikli = artikli;
         this.lokacija = lokacija;
     }
 
-    public int getIdLokacija() {
-        return this.idLokacija;
+    public Long getIdLokacija() {
+        return this.idRestorana;
     }
 
-    public void setIdLokacija(int idLokacija) {
-        this.idLokacija = idLokacija;
+    public void setIdLokacija(Long idRestorana) {
+        this.idRestorana = idRestorana;
     }
 
     public String getNaziv() {
@@ -58,11 +66,11 @@ public class Restoran implements Serializable {
         this.tip_restorana = tip_restorana;
     }
 
-    public ArrayList<Artikal> getArtikli() {
+    public Set<Artikal> getArtikli() {
         return artikli;
     }
 
-    public void setArtikli(ArrayList<Artikal> artikli) {
+    public void setArtikli(Set<Artikal> artikli) {
         this.artikli = artikli;
     }
 

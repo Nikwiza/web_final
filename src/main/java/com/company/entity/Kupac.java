@@ -2,62 +2,63 @@ package com.company.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
+/**
+ *
+ * This is a class that describes the customer
+ *
+ * */
 
 @Entity
-@NamedQuery(name = "Kupac.findALL", query = "SELECT u FROM Kupac k")
-public class Kupac implements Serializable{
-    private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idKupac;
+public class Kupac extends Korisnik implements Serializable{
+
+    @OneToMany(mappedBy = "kupac", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Porudzbina> porudzbine = new HashSet<>();
 
     @Column
-    private String porudzbine;
+    private int broj_skupljenih_bodova;
 
-    @Column
-    private int Broj_sakupljenih_bodova;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "TipKupcaId")
+    private Tipkupca tip_kupca;
 
-    @Column
-    private String tip;
-
-    public Kupac(){}
-
-    public int getIdKupac(){
-        return this.idKupac;
+    public Kupac() {
+        super(Uloga.KUPAC);
     }
 
-    public void setIdKupac(int idKupac){
-        this.idKupac = idKupac;
+    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Set<Porudzbina> porudzbine, int broj_skupljenih_bodova, Tipkupca tip_kupca) {
+        super(korisnicko_ime, lozinka, ime, prezime, pol, datum_rodjenja, Uloga.KUPAC);
+        this.porudzbine = porudzbine;
+        this.broj_skupljenih_bodova = broj_skupljenih_bodova;
+        this.tip_kupca = tip_kupca;
     }
 
-    @OneToOne
-    @JoinColumn(name = "idKorisnik")
-    private Korisnik korisnik;
-
-    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, Pol p, Date datum_rodjenja) {
-        super(korisnicko_ime, lozinka, ime, prezime, p, datum_rodjenja);
+    public Set<Porudzbina> getPorudzbine() {
+        return porudzbine;
     }
 
-    public void setPorudzbine(String porudzbine) {
+    public void setPorudzbine(Set<Porudzbina> porudzbine) {
         this.porudzbine = porudzbine;
     }
 
-    public void setBroj_sakupljenih_bodova(int broj_sakupljenih_bodova) {
-        Broj_sakupljenih_bodova = broj_sakupljenih_bodova;
+    public int getBroj_skupljenih_bodova() {
+        return broj_skupljenih_bodova;
     }
 
-    public void setTip(String tip) {
-        this.tip = tip;
+    public void setBroj_skupljenih_bodova(int broj_skupljenih_bodova) {
+        this.broj_skupljenih_bodova = broj_skupljenih_bodova;
     }
 
-    @Override
-    public String toString() {
-        return "Kupac je: " +
-                "tipa; " + tip +
-                "porudzbine su mu: " + porudzbine + '\'' +
-                ", a broj sakupljenih poena mu je: " + Broj_sakupljenih_bodova + ".\n";
+    public void setTip_kupca(Tipkupca tip_kupca) {
+        this.tip_kupca = tip_kupca;
+    }
+
+    public Tipkupca getTip_kupca() {
+        return tip_kupca;
     }
 }
