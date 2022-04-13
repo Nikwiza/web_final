@@ -9,7 +9,7 @@ import java.io.Serializable;
  *
  * */
 
-enum Znacka {GOLD, SILVER, BRONZE};
+enum Znacka {GOLD, SILVER, BRONZE}; //nazvati ime i string
 //todo: Delete the setter for the id-s
 
 @Entity
