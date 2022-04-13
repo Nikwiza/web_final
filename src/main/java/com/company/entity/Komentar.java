@@ -19,10 +19,10 @@ public class Komentar implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idKomentar;
 
-    @OneToOne(mappedBy = "tip_kupca")
+    @OneToOne(mappedBy = "tip_kupca") //many to one
     private Kupac kupac;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL) //many to one
     @JoinColumn(name = "restaurant_comments", referencedColumnName = "idRestorana")
     private Restoran restoran;
 
