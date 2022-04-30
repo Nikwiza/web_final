@@ -12,8 +12,8 @@ public class Korisnik implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idKorisnika;
 
-    @Column(nullable = false, unique = true)
-    protected String korisnicko_ime;
+    @Column(nullable = false, unique = true, name = "korisnicko")
+    protected String korisnicko;
 
     @Column(nullable = false)
     protected String lozinka;
@@ -42,8 +42,8 @@ public class Korisnik implements Serializable {
         this.uloga = uloga;
     }
 
-    public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Uloga uloga) {
-        this.korisnicko_ime = korisnicko_ime;
+    public Korisnik(String korisnicko, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Uloga uloga) {
+        this.korisnicko = korisnicko;
         this.lozinka = lozinka;
         this.ime = ime;
         this.prezime = prezime;
@@ -60,12 +60,12 @@ public class Korisnik implements Serializable {
         this.idKorisnika = idKorisnika;
     }
 
-    public String getKorisnicko_ime() {
-        return korisnicko_ime;
+    public String getKorisnicko() {
+        return korisnicko;
     }
 
-    public void setKorisnicko_ime(String korisnicko_ime) {
-        this.korisnicko_ime = korisnicko_ime;
+    public void setKorisnicko(String korisnicko) {
+        this.korisnicko = korisnicko;
     }
 
     public String getLozinka() {
@@ -118,8 +118,8 @@ public class Korisnik implements Serializable {
 
     // ===========MAKEING DATABASE TESTING EASIER==========
 
-    public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime) {
-        this.korisnicko_ime = korisnicko_ime;
+    public Korisnik(String korisnicko, String lozinka, String ime, String prezime) {
+        this.korisnicko = korisnicko;
         this.lozinka = lozinka;
         this.ime = ime;
         this.prezime = prezime;
@@ -131,7 +131,7 @@ public class Korisnik implements Serializable {
     public String toString() {
         return "Korisnik{" +
                 "idKorisnika=" + idKorisnika +
-                ", korisnicko_ime='" + korisnicko_ime + '\'' +
+                ", korisnicko_ime='" + korisnicko + '\'' +
                 ", lozinka='" + lozinka + '\'' +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +

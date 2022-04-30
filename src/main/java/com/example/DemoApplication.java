@@ -32,7 +32,7 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception{
 		Korisnik korisnik = new Korisnik();
-		korisnik.setKorisnicko_ime("Nikwiza");
+		korisnik.setKorisnicko("Nikwiza");
 		korisnik.setIme("Nikola");
 		korisnik.setPrezime("Kerleta");
 		korisnik.setLozinka("lozinkus");

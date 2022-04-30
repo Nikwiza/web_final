@@ -23,7 +23,7 @@ public class Kupac extends Korisnik implements Serializable{
     @Column
     private int broj_skupljenih_bodova;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "TipKupcaId")
     private Tipkupca tip_kupca;
 

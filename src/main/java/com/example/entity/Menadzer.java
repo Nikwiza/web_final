@@ -14,7 +14,7 @@ import javax.persistence.*;
 
 public class Menadzer extends Korisnik implements Serializable {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "restoran_id", referencedColumnName = "idRestorana")
     private Restoran restoran;
 

@@ -71,7 +71,7 @@ public class DatabaseConfiguration {
         Kupac dunja = new Kupac();
         dunja.setIme("Dunja");
         dunja.setLozinka("Lozinkus");
-        dunja.setKorisnicko_ime("Dundarino");
+        dunja.setKorisnicko("Dundarino");
         dunja.setPrezime("Kerleta");
         dunja.setDatum_rodjenja(datum1);
         dunja.setPol(Pol.ZENSKI);

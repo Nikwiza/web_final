@@ -13,4 +13,11 @@ public class KorisnikService {
     @Autowired
     private KorisnikRepository korisnikRepository;
 
+    public Korisnik login(String korisnicko, String lozinka) {
+        Korisnik korisnik = korisnikRepository.getByKorisnicko(korisnicko);
+        if(korisnik == null || !korisnik.getLozinka().equals(lozinka)){
+        return null;}
+        return korisnik;
+    }
+
 }

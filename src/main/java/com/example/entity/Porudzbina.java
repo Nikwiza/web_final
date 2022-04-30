@@ -13,9 +13,9 @@ public class Porudzbina implements Serializable {
     private UUID uuid;
 
     @ManyToMany(cascade = {CascadeType.ALL}) //klasa kao stavka porudzbine kolicina porucenog, dodavanje kolicine
-    @JoinTable(name="Artikli_u_porudzbini",
-            joinColumns = {@JoinColumn(name="porudzbina_id")},
-            inverseJoinColumns = {@JoinColumn(name = "idArtikla")})
+    @JoinTable(name="Stavke_u_porudzbini",
+            joinColumns = {@JoinColumn(name="idPorudzbine")},
+            inverseJoinColumns = {@JoinColumn(name = "idStavke")})
     private Set<Stavka> stavke = new HashSet<>();
 
     @ManyToOne
@@ -30,7 +30,7 @@ public class Porudzbina implements Serializable {
     private float cena;
 
     @ManyToOne
-    @JoinColumn(name = "kupacId")
+    @JoinColumn(name = "korisnicko_ime")
     private Kupac kupac;
 
     @Enumerated(EnumType.STRING)

@@ -1,0 +1,44 @@
+package com.example.controller;
+
+import com.example.dto.LoginDto;
+import com.example.entity.Korisnik;
+import com.example.repository.KorisnikRepository;
+import com.example.service.KorisnikService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+
+@RestController
+public class KorisnikRestController {
+
+    @Autowired
+    private KorisnikService korisnikService;
+
+    @GetMapping("/")
+    public String welcome(){
+        return "Hello from api!";
+    }
+
+    //Logging endpoint
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpSession session){
+        //Validating data
+        if(loginDto.getKorisnicko_ime().isEmpty() || loginDto.getLozinka().isEmpty()){
+            return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+        }
+
+        Korisnik logovan_korisnik = korisnikService.login(loginDto.getKorisnicko_ime(), loginDto.getLozinka());
+        if(logovan_korisnik == null){
+            return new ResponseEntity("User does not exist!", HttpStatus.NOT_FOUND);
+        }
+        session.setAttribute("korisnik", logovan_korisnik);
+        return ResponseEntity.ok("Successfully logged in!");
+
+    }
+}

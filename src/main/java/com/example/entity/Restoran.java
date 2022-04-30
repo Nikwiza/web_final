@@ -30,6 +30,8 @@ public class Restoran implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)  // Creates Restoran_lokacije table which does the same thing
     private Set<Lokacija> lokacije = new HashSet<>();
 
+    //This is why we never persist articles or locations. They are tied to the restaurant.
+
     public Restoran(){}
 
     public Restoran(String naziv, String tip_restorana, Set<Artikal> artikli, Set<Lokacija> lokacije) {
