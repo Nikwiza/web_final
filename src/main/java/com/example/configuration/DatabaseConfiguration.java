@@ -66,6 +66,17 @@ public class DatabaseConfiguration {
         Korisnik jole = new Korisnik("Jole", "ovojesifra", "Jovke", "Jovanovic", Pol.MUSKI, datum1, Uloga.MENADZER);
         Korisnik zika = new Korisnik("Zikle", "ovojesifra", "Zile", "Zivanovic", Pol.MUSKI, datum1, Uloga.DOSTAVLJAC);
         Korisnik paki = new Korisnik("Pakson", "ovojesifra", "Paki", "Pakianovic", Pol.MUSKI, datum1, Uloga.ADMIN);
+
+        //Logging a customer
+        Kupac dunja = new Kupac();
+        dunja.setIme("Dunja");
+        dunja.setLozinka("Lozinkus");
+        dunja.setKorisnicko_ime("Dundarino");
+        dunja.setPrezime("Kerleta");
+        dunja.setDatum_rodjenja(datum1);
+        dunja.setPol(Pol.ZENSKI);
+        dunja.setUloga(Uloga.KUPAC);
+        kupacRepository.save(dunja);
         korisnikRepository.saveAll(List.of(jole, zika, paki));
 
         //Locations
@@ -84,6 +95,22 @@ public class DatabaseConfiguration {
         siki.getArtikli().add(sok_jabuka);
         siki.getArtikli().add(jelen_pivo);
         restoranRepository.save(siki);
+
+        //Stavke
+        Stavka stavka = new Stavka();
+        stavka.setArtikal(krofna);
+        stavka.setBroj(2);
+
+        //Porudzbine
+        Porudzbina porudzbina = new Porudzbina();
+        porudzbina.setRestoran(siki);
+        porudzbina.setDatum(datum1);
+        porudzbina.setCena(222);
+        porudzbina.setStatus(Status.OBRADA);
+        porudzbina.setStavke(Set.of(stavka));
+        porudzbina.setKupac((Kupac) dunja);
+        porudzbinaRepository.save(porudzbina);
+
 
 
         return true;

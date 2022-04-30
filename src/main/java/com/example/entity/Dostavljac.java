@@ -15,8 +15,8 @@ import java.util.Set;
 @Entity
 public class Dostavljac extends Korisnik implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dostavljacId", nullable = false)
+    @OneToMany
+    @JoinColumn(name = "dostavljacId")
     private Set<Porudzbina> porudzbine = new HashSet<>();
 
     public Dostavljac() {
