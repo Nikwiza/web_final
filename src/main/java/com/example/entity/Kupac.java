@@ -28,11 +28,22 @@ public class Kupac extends Korisnik implements Serializable{
     private Tipkupca tip_kupca;
 
     public Kupac() {
-        super(Uloga.KUPAC);
+        this.uloga = Uloga.KUPAC;
     }
 
-    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Set<Porudzbina> porudzbine, int broj_skupljenih_bodova, Tipkupca tip_kupca) {
-        super(korisnicko_ime, lozinka, ime, prezime, pol, datum_rodjenja, Uloga.KUPAC);
+    //Registracija
+    public Kupac(Korisnik korisnik){
+        this.broj_skupljenih_bodova = 0;
+        this.uloga = Uloga.KUPAC;
+        this.ime = korisnik.ime;
+        this.prezime = korisnik.prezime;
+        this.korisnicko = korisnik.korisnicko;
+        this.lozinka = korisnik.lozinka;
+        this.pol = korisnik.pol;
+    }
+
+    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Set<Porudzbina> porudzbine, int broj_skupljenih_bodova) {
+        super(korisnicko_ime, lozinka, ime, prezime, pol, datum_rodjenja);
         this.porudzbine = porudzbine;
         this.broj_skupljenih_bodova = broj_skupljenih_bodova;
         this.tip_kupca = tip_kupca;

@@ -63,9 +63,10 @@ public class DatabaseConfiguration {
         Artikal jelen_pivo = new Artikal ("Jelen pivo", 80, "Pice", 250, "Svetlo pivo marke jelen");
 
         //Users
-        Korisnik jole = new Korisnik("Jole", "ovojesifra", "Jovke", "Jovanovic", Pol.MUSKI, datum1, Uloga.MENADZER);
-        Korisnik zika = new Korisnik("Zikle", "ovojesifra", "Zile", "Zivanovic", Pol.MUSKI, datum1, Uloga.DOSTAVLJAC);
-        Korisnik paki = new Korisnik("Pakson", "ovojesifra", "Paki", "Pakianovic", Pol.MUSKI, datum1, Uloga.ADMIN);
+        Korisnik jole = new Korisnik("Jole", "ovojesifra", "Jovke", "Jovanovic", Pol.MUSKI, datum1);
+        Korisnik zika = new Korisnik("Zikle", "ovojesifra", "Zile", "Zivanovic", Pol.MUSKI, datum1);
+        Korisnik paki = new Korisnik("Pakson", "ovojesifra", "Paki", "Pakianovic", Pol.MUSKI, datum1);
+        paki.setUloga(Uloga.ADMIN);
 
         //Logging a customer
         Kupac dunja = new Kupac();

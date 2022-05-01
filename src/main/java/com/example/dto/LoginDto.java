@@ -2,23 +2,23 @@ package com.example.dto;
 
 public class LoginDto {
 
-    private String korisnicko_ime;
+    private String korisnicko;
     private String lozinka;
 
     public LoginDto() {
     }
 
-    public LoginDto(String korisnicko_ime, String lozinka) {
-        this.korisnicko_ime = korisnicko_ime;
+    public LoginDto(String korisnicko, String lozinka) {
+        this.korisnicko = korisnicko;
         this.lozinka = lozinka;
     }
 
-    public String getKorisnicko_ime() {
-        return korisnicko_ime;
+    public String getKorisnicko() {
+        return korisnicko;
     }
 
-    public void setKorisnicko_ime(String korisnicko_ime) {
-        this.korisnicko_ime = korisnicko_ime;
+    public void setKorisnicko(String korisnicko) {
+        this.korisnicko = korisnicko;
     }
 
     public String getLozinka() {

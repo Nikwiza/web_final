@@ -38,18 +38,13 @@ public class Korisnik implements Serializable {
 
     public Korisnik(){}
 
-    public Korisnik(Uloga uloga){
-        this.uloga = uloga;
-    }
-
-    public Korisnik(String korisnicko, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Uloga uloga) {
+    public Korisnik(String korisnicko, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja) {
         this.korisnicko = korisnicko;
         this.lozinka = lozinka;
         this.ime = ime;
         this.prezime = prezime;
         this.pol = pol;
         this.datum_rodjenja = datum_rodjenja;
-        this.uloga = uloga;
     }
 
     public Long getIdKorisnika() {
@@ -116,7 +111,7 @@ public class Korisnik implements Serializable {
         this.uloga = uloga;
     }
 
-    // ===========MAKEING DATABASE TESTING EASIER==========
+    // ===========SIMPLER REGISTRATION==========
 
     public Korisnik(String korisnicko, String lozinka, String ime, String prezime) {
         this.korisnicko = korisnicko;
@@ -125,7 +120,7 @@ public class Korisnik implements Serializable {
         this.prezime = prezime;
     }
 
-    //==================================
+    //===========================================
 
     @Override
     public String toString() {
