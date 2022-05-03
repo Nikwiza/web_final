@@ -127,7 +127,6 @@ public class Korisnik implements Serializable {
         return "Korisnik{" +
                 "idKorisnika=" + idKorisnika +
                 ", korisnicko_ime='" + korisnicko + '\'' +
-                ", lozinka='" + lozinka + '\'' +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
                 ", pol=" + pol +
