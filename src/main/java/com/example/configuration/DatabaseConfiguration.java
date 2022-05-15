@@ -67,6 +67,7 @@ public class DatabaseConfiguration {
         Korisnik zika = new Korisnik("Zikle", "ovojesifra", "Zile", "Zivanovic", Pol.MUSKI, datum1);
         Korisnik paki = new Korisnik("Pakson", "ovojesifra", "Paki", "Pakianovic", Pol.MUSKI, datum1);
         paki.setUloga(Uloga.ADMIN);
+        korisnikRepository.save(paki);
 
         //Logging a customer
         Kupac dunja = new Kupac();
@@ -78,7 +79,7 @@ public class DatabaseConfiguration {
         dunja.setPol(Pol.ZENSKI);
         dunja.setUloga(Uloga.KUPAC);
         kupacRepository.save(dunja);
-        korisnikRepository.saveAll(List.of(jole, zika, paki));
+//        korisnikRepository.saveAll(List.of(jole, zika, paki));
 
         //Locations
         Lokacija siki_lokacija= new Lokacija(32.12, 342.2, "Mornara Popaja 2");
@@ -92,6 +93,7 @@ public class DatabaseConfiguration {
         Restoran siki = new Restoran();
         siki.setTip_restorana("Rostiljdzarnica");
         siki.setLokacija(Set.of(siki_lokacija));
+        siki.setNaziv("Siki");
         siki.getArtikli().add(krofna);
         siki.getArtikli().add(sok_jabuka);
         siki.getArtikli().add(jelen_pivo);
@@ -112,6 +114,11 @@ public class DatabaseConfiguration {
         porudzbina.setKupac((Kupac) dunja);
         porudzbinaRepository.save(porudzbina);
 
+        //Menager
+
+        Menadzer menadzer_1 = new Menadzer(zika);
+        menadzer_1.setRestoran(siki);
+        menadzerRepository.save(menadzer_1);
 
 
         return true;

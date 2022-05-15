@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -12,14 +14,12 @@ public class Porudzbina implements Serializable {
     @GeneratedValue
     private UUID uuid;
 
-    @ManyToMany(cascade = {CascadeType.ALL}) //klasa kao stavka porudzbine kolicina porucenog, dodavanje kolicine
-    @JoinTable(name="Stavke_u_porudzbini",
-            joinColumns = {@JoinColumn(name="idPorudzbine")},
-            inverseJoinColumns = {@JoinColumn(name = "idStavke")})
+    @OneToMany(cascade = CascadeType.ALL) //klasa kao stavka porudzbine kolicina porucenog, dodavanje kolicine
     private Set<Stavka> stavke = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "restoran_id_lokacija")
+    @JsonIgnore
     private Restoran restoran;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -19,16 +19,11 @@ public class KorisnikRestController {
     @Autowired
     private KorisnikService korisnikService;
 
-    @GetMapping("/")
-    public String welcome(){
-        return "Hello from api!";
-    }
-
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Korisnik korisnik){
         String response = korisnikService.register(korisnik);
         return ResponseEntity.ok(response);
-    } //todo: finish registration
+    }
 
     //Logging endpoint
     @PostMapping("/login")
@@ -64,56 +59,16 @@ public class KorisnikRestController {
         if(logovanKorisnik == null){
             return new ResponseEntity("Forbidden", HttpStatus.FORBIDDEN);
         }
-        return ResponseEntity.ok(logovanKorisnik.toString());
+        KorisnikDto logovani_korisnikDTO = new KorisnikDto(logovanKorisnik);
+        return ResponseEntity.ok(logovani_korisnikDTO);
     }
 
-    @PostMapping("/profil/setusername")
-    public ResponseEntity setusername(@RequestBody String name, HttpSession session){
-        Korisnik logovanKorisnik = (Korisnik) session.getAttribute("korisnik");
-        if(logovanKorisnik == null){
-            return new ResponseEntity("Forbidden", HttpStatus.FORBIDDEN);
-        }
-        String response = korisnikService.setUsername(name, logovanKorisnik);
-        return ResponseEntity.ok(response);
+    @PostMapping("/profil")
+    public ResponseEntity<String> setprofil(@RequestBody KorisnikDto korisnikDto, HttpSession session){
+        Korisnik logovaniKorisnik = (Korisnik)session.getAttribute("korisnik");
+        String response = korisnikService.setaccount(korisnikDto,logovaniKorisnik);
+        return ResponseEntity.ok (response);
     }
 
-    @PostMapping("/profil/setpassword")
-    public ResponseEntity setpassword(@RequestBody String sifra, HttpSession session){
-        Korisnik logovanKorisnik = (Korisnik) session.getAttribute("korisnik");
-        if(logovanKorisnik == null){
-            return new ResponseEntity("Forbidden", HttpStatus.FORBIDDEN);
-        }
-        String response = korisnikService.setPassword(sifra, logovanKorisnik);
-        return ResponseEntity.ok(response);
-    }
 
-    @PostMapping("/profil/setime")
-    public ResponseEntity setime(@RequestBody String ime, HttpSession session){
-        Korisnik logovanKorisnik = (Korisnik) session.getAttribute("korisnik");
-        if(logovanKorisnik == null){
-            return new ResponseEntity("Forbidden", HttpStatus.FORBIDDEN);
-        }
-        String response = korisnikService.setIme(ime, logovanKorisnik);
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/profil/setprezime")
-    public ResponseEntity setprezime(@RequestBody String prezime, HttpSession session){
-        Korisnik logovanKorisnik = (Korisnik) session.getAttribute("korisnik");
-        if(logovanKorisnik == null){
-            return new ResponseEntity("Forbidden", HttpStatus.FORBIDDEN);
-        }
-        String response = korisnikService.setPrezime(prezime, logovanKorisnik);
-        return ResponseEntity.ok(response);
-    }
-
-//    @PostMapping("/profil/setpol")
-//    public ResponseEntity setpassword(@RequestBody Pol pol, HttpSession session){
-//        Korisnik logovanKorisnik = (Korisnik) session.getAttribute("korisnik");
-//        if(logovanKorisnik == null){
-//            return new ResponseEntity("Forbidden", HttpStatus.FORBIDDEN);
-//        }
-//        String response = korisnikService.setPol(pol, logovanKorisnik);
-//        return ResponseEntity.ok(response);
-//    }
 }

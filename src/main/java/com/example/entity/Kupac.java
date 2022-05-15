@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -18,6 +20,7 @@ import javax.persistence.*;
 public class Kupac extends Korisnik implements Serializable{
 
     @OneToMany(mappedBy = "kupac", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Porudzbina> porudzbine = new HashSet<>();
 
     @Column

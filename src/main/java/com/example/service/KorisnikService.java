@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.KorisnikDto;
 import com.example.entity.Korisnik;
 import com.example.entity.Kupac;
 import com.example.entity.Pol;
@@ -32,40 +33,23 @@ public class KorisnikService {
         return korisnik;
     }
 
-    public String setUsername(String username, Korisnik korisnik){
-        Korisnik test = korisnikRepository.getByKorisnicko(username);
-        if(test != null){
-            return "Username already in use";
+    public String setaccount(KorisnikDto korisnikDto, Korisnik logovanKorisnik){
+        logovanKorisnik.setPol(korisnikDto.getPol());
+        logovanKorisnik.setPrezime(korisnikDto.getPrezime());
+        logovanKorisnik.setIme(korisnikDto.getIme());
+        logovanKorisnik.setDatum_rodjenja(korisnikDto.getDatum_rodjenja());
+        Korisnik temp = korisnikRepository.getByKorisnicko(korisnikDto.getKorisnicko_ime());
+
+        if(temp == null || korisnikDto.getKorisnicko_ime().equals(logovanKorisnik.getKorisnicko())){
+            logovanKorisnik.setKorisnicko(korisnikDto.getKorisnicko_ime());
+            korisnikRepository.save(logovanKorisnik);
+            return "Uspesno promenjeni podatci";
         }
-            korisnik.setKorisnicko(username);
-            korisnikRepository.save(korisnik);
-            return "Username set successfully!!";
+        return "Korisnicko ime vec postoji";
+
 
     }
-    public String setPassword(String password, Korisnik korisnik){
-        korisnik.setLozinka(password);
-        korisnikRepository.save(korisnik);
-        return "Password set successfully!!";
-    }
 
-    public String setIme(String ime, Korisnik korisnik){
-        korisnik.setIme(ime);
-        korisnikRepository.save(korisnik);
-        return "First name set successfully!!";
-    }
-
-    public String setPrezime(String prezime, Korisnik korisnik){
-        korisnik.setPrezime(prezime);
-        korisnikRepository.save(korisnik);
-        return "Last name set successfully!!";
-    }
-//
-//    public String setPol(String pol, Korisnik korisnik){
-//        korisnikRepository.save(korisnik);
-//        return "First name set successfully!!";
-//    }
-
-    //set date
 
 
 }
