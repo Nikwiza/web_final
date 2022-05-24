@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.PorudzbinaDto;
 import com.example.entity.*;
 import com.example.repository.KorisnikRepository;
 import com.example.repository.MenadzerRepository;
@@ -7,6 +8,7 @@ import com.example.repository.PorudzbinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -39,10 +41,16 @@ public class MenadzerService {
        return temp.getRestoran();
     }
 
-    public Set<Porudzbina> findporudzbine(Korisnik korisnik){
+    public Set<PorudzbinaDto> findporudzbine(Korisnik korisnik){
         Menadzer temp = menadzerRepository.getById(korisnik.getIdKorisnika());
         Set<Porudzbina> porudzbine = porudzbinaRepository.getByRestoran(temp.getRestoran());
-        return porudzbine;
+        Set<PorudzbinaDto> porudzbineDto = new HashSet<>();
+        PorudzbinaDto tempp;
+        for(Porudzbina p : porudzbine){
+            tempp = new PorudzbinaDto(p);
+            porudzbineDto.add(tempp);
+        }
+        return porudzbineDto;
     }
 
 }

@@ -1,8 +1,9 @@
 package com.example.controller;
 
-
+//todo: Make every controller use only one service, the services can communicate with each other.
 import com.example.dto.KorisnikDto;
 import com.example.entity.Korisnik;
+import com.example.entity.Restoran;
 import com.example.entity.Uloga;
 import com.example.repository.DostavljacRepository;
 import com.example.repository.KorisnikRepository;
@@ -14,10 +15,7 @@ import com.example.service.MenadzerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.net.http.HttpResponse;
@@ -39,7 +37,7 @@ public class AdminRestController {
     private AdminService adminService;
 
     @PostMapping("/add/menadzer")
-    public ResponseEntity add_menadzer(@RequestBody Korisnik korisnik, HttpSession session){ //todo: We set menager restaurants when we make a new restaurant
+    public ResponseEntity add_menadzer(@RequestBody Korisnik korisnik, HttpSession session){
         Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.ADMIN) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
@@ -67,6 +65,27 @@ public class AdminRestController {
         List<KorisnikDto> korisnici = adminService.uvid_u_korisnike();
         return new ResponseEntity<List<KorisnikDto>>(korisnici, HttpStatus.OK);
     }
+
+        @PostMapping("/add/restoran")
+    public ResponseEntity add_restoran(@RequestBody Restoran restoran, HttpSession session){
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.ADMIN) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+         adminService.napravi_restoran(restoran);
+        return ResponseEntity.ok("Restoran dodat !");
+    }
+
+    @PostMapping("/restoran/{ime}/setmenadzer")
+    public ResponseEntity add_restoran_menadzer(@PathVariable (value = "ime") String ime,@RequestBody String menadzer, HttpSession session){
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.ADMIN) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String response = adminService.set_restoran_menager(ime, menadzer);
+        return ResponseEntity.ok(response);
+    }
+
 
     ////////////////////////////////////ADMIN REQUEST TEMPLATE//////////////////////////////////
 //    @PostMapping("/add/menadzer")

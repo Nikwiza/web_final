@@ -32,4 +32,15 @@ public class RestoranService {
         return restoraniDto;
     }
 
+    public List<RestoranDto> restorani_tip(String tip_restorana){
+        List<Restoran> restorani = restoranRepository.findByTip(tip_restorana);
+        List<RestoranDto> restoranDtos = new ArrayList<>();
+        RestoranDto temp;
+        for(Restoran r : restorani) {
+        temp = new RestoranDto(r);
+        restoranDtos.add(temp);
+        }
+        return restoranDtos;
+    }
+
 }

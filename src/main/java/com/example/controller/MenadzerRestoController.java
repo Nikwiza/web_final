@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.example.dto.PorudzbinaDto;
 import com.example.dto.RestoranDto;
 import com.example.entity.*;
 import com.example.service.MenadzerService;
@@ -34,12 +35,12 @@ public class MenadzerRestoController {
     }
 
     @GetMapping("/menadzer/restoran/porudzbine")
-    public ResponseEntity<Set<Porudzbina>> mojeporudzbiine(HttpSession session) {
+    public ResponseEntity<Set<PorudzbinaDto>> mojeporudzbiine(HttpSession session) {
         Korisnik logovaniKorisnik = (Menadzer) session.getAttribute("korisnik");
         if (logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
-        Set<Porudzbina> porudzbine = menadzerService.findporudzbine(logovaniKorisnik);
-        return new ResponseEntity<Set<Porudzbina>>(porudzbine, HttpStatus.OK);
+        Set<PorudzbinaDto> porudzbine = menadzerService.findporudzbine(logovaniKorisnik);
+        return new ResponseEntity<Set<PorudzbinaDto>>(porudzbine, HttpStatus.OK);
     }
 }

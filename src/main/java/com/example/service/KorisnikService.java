@@ -7,6 +7,7 @@ import com.example.entity.Pol;
 import com.example.repository.KorisnikRepository;
 import com.example.repository.KupacRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,7 +50,6 @@ public class KorisnikService {
 
 
     }
-
 
 
 }
