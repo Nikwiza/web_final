@@ -109,7 +109,7 @@ public class DatabaseConfiguration {
         porudzbina.setRestoran(siki);
         porudzbina.setDatum(datum1);
         porudzbina.setCena(222);
-        porudzbina.setStatus(Status.OBRADA);
+        porudzbina.setStatus(Status.CEKA_DOSTAVLJACA);
         porudzbina.setStavke(Set.of(stavka));
         porudzbina.setKupac((Kupac) dunja);
         porudzbinaRepository.save(porudzbina);
@@ -124,6 +124,11 @@ public class DatabaseConfiguration {
         Komentar komentar = new Komentar(dunja, siki, "Nije lose, samo ima puno soje u pljeskavicama", 4);
         komentarRepository.save(komentar);
 
+        //Dostavljac
+//        String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Set<Porudzbina> porudzbine
+        Set<Porudzbina> p = new HashSet<>();
+        Dostavljac marko = new Dostavljac("marko", "Lozinkus", "Marko", "Skavic", Pol.MUSKI, datum1, p);
+        dostavljacRepository.save(marko);
 
         return true;
     }

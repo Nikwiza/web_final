@@ -21,4 +21,9 @@ public class DostavljacService {
         dostavljacRepository.save(dostavljac);
         return "Successfully added new delivery employee!";
     }
+
+    public Dostavljac findDostavljac(Korisnik korisnik){
+        Dostavljac dostavljac = dostavljacRepository.getById(korisnik.getIdKorisnika());
+        return dostavljac;
+    }
 }
