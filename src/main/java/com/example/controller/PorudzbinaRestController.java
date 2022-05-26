@@ -93,7 +93,7 @@ public class PorudzbinaRestController {
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.DOSTAVLJAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
-        String response = porudzbinaService.dostavi(uuid, logovaniKorisnik);
+        String response = porudzbinaService.dostavi(uuid);
         return ResponseEntity.ok(response);
     }
 

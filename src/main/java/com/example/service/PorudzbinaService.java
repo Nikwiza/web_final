@@ -67,6 +67,7 @@ public class PorudzbinaService {
             return "Nije validna porudzbina";
         }
         porudzbina.setStatus(Status.U_PRIPREMI);
+        porudzbinaRepository.save(porudzbina);
         return "Uspesno izvrseno!";
     }
 
@@ -76,6 +77,7 @@ public class PorudzbinaService {
             return "Nije validna porudzbina";
         }
         porudzbina.setStatus(Status.CEKA_DOSTAVLJACA);
+        porudzbinaRepository.save(porudzbina);
         return "Uspesno izvrseno!";
     }
 
@@ -85,18 +87,22 @@ public class PorudzbinaService {
             return "Nije validna porudzbina";
         }
         porudzbina.setStatus(Status.U_TRANSPORTU);
+        porudzbinaRepository.save(porudzbina);
         return "Uspesno izvrseno!";
     }
 
-    public String dostavi(UUID uuid, Korisnik korisnik){
+    public String dostavi(UUID uuid){
         Porudzbina porudzbina = porudzbinaRepository.getById(uuid);
         if(porudzbina == null){
             return "Nije validna porudzbina";
         }
         porudzbina.setStatus(Status.DOSTAVLJENA);
-        Kupac kupac = kupacService.findKupac(korisnik);
+        Kupac kupac = porudzbina.getKupac();
         int bodovi = kupac.getBroj_skupljenih_bodova();
         bodovi += (porudzbina.getCena()/1000)*133;
+        kupac.setBroj_skupljenih_bodova(bodovi);
+        kupacService.saveKupc(kupac);
+        porudzbinaRepository.save(porudzbina);
         return "Uspesno izvrseno!";
     }
 

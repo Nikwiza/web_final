@@ -15,4 +15,8 @@ public class KupacService {
         Kupac kupac = kupacRepository.findByKorisnicko(korisni.getKorisnicko());
         return kupac;
     }
+
+    public void saveKupc(Kupac kupac){
+        kupacRepository.save(kupac);
+    }
 }
