@@ -1,15 +1,14 @@
 package com.example.service;
 
 import com.example.dto.PorudzbinaDto;
+import com.example.dto.RestoranDto;
 import com.example.entity.*;
 import com.example.repository.KupacRepository;
 import com.example.repository.PorudzbinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class PorudzbinaService {
@@ -21,6 +20,9 @@ public class PorudzbinaService {
 
     @Autowired
     DostavljacService dostavljacService;
+
+    @Autowired
+    RestoranService restoranService;
 
     public Set<PorudzbinaDto> poruzbineKorisnik (Korisnik korisnik){
         Kupac kupac = kupacService.findKupac(korisnik);
@@ -47,4 +49,55 @@ public class PorudzbinaService {
         }
         return porudzbinaDtos;
     }
+
+    public String purchaseMade(Set<Stavka> stavke, RestoranDto restoranDto, Date datum, float cena, Korisnik kupac ){
+        Kupac kupacl = kupacService.findKupac(kupac);
+        Restoran restoran = restoranService.findByName(restoranDto.getNaziv());
+        if(kupacl == null || restoran == null){
+            return "Doslo je do greske!";
+        }
+        Porudzbina porudzbina = new Porudzbina(stavke, restoran, datum , cena, kupacl);
+        porudzbinaRepository.save(porudzbina);
+        return "Uspesno odradjeno!";
+    }
+
+    public String odobriPorudzbinu(UUID uuid){
+        Porudzbina porudzbina = porudzbinaRepository.getById(uuid);
+        if(porudzbina == null){
+            return "Nije validna porudzbina";
+        }
+        porudzbina.setStatus(Status.U_PRIPREMI);
+        return "Uspesno izvrseno!";
+    }
+
+    public String posaljiPorudzbinu(UUID uuid){
+        Porudzbina porudzbina = porudzbinaRepository.getById(uuid);
+        if(porudzbina == null){
+            return "Nije validna porudzbina";
+        }
+        porudzbina.setStatus(Status.CEKA_DOSTAVLJACA);
+        return "Uspesno izvrseno!";
+    }
+
+    public String preuzmi(UUID uuid){
+        Porudzbina porudzbina = porudzbinaRepository.getById(uuid);
+        if(porudzbina == null){
+            return "Nije validna porudzbina";
+        }
+        porudzbina.setStatus(Status.U_TRANSPORTU);
+        return "Uspesno izvrseno!";
+    }
+
+    public String dostavi(UUID uuid, Korisnik korisnik){
+        Porudzbina porudzbina = porudzbinaRepository.getById(uuid);
+        if(porudzbina == null){
+            return "Nije validna porudzbina";
+        }
+        porudzbina.setStatus(Status.DOSTAVLJENA);
+        Kupac kupac = kupacService.findKupac(korisnik);
+        int bodovi = kupac.getBroj_skupljenih_bodova();
+        bodovi += (porudzbina.getCena()/1000)*133;
+        return "Uspesno izvrseno!";
+    }
+
 }

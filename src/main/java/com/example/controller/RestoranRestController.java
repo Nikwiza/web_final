@@ -39,7 +39,7 @@ public class RestoranRestController {
         Set<Artikal> artikli = restoranService.artikli(restoran);
         float ocena = restoranService.ocena(restoran);
         RestoranDto restoranDto = new RestoranDto(restoran);
-        RestoranStranicaDto restoranStranicaDto = new RestoranStranicaDto(restoranDto, ocena, komentari, artikli, StatusRestorana.RADI); //Todo: dodati nacin da se menja status
+        RestoranStranicaDto restoranStranicaDto = new RestoranStranicaDto(restoranDto, ocena, komentari, artikli); //Todo: dodati nacin da se menja status
         return ResponseEntity.ok(restoranStranicaDto);
     }
 

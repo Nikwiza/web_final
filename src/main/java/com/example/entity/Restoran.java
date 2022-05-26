@@ -1,4 +1,6 @@
 package com.example.entity;
+import com.example.dto.StatusRestorana;
+
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -22,6 +24,10 @@ public class Restoran implements Serializable {
 
     @Column
     private String tip;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private StatusRestorana status;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)  //Creates Restoran_artikli table that stores what articles a restaurant has
         private Set<Artikal> artikli = new HashSet<>();
@@ -86,5 +92,13 @@ public class Restoran implements Serializable {
 
     public void setLokacija(Set<Lokacija> lokacije) {
         this.lokacije = lokacije;
+    }
+
+    public StatusRestorana getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusRestorana status) {
+        this.status = status;
     }
 }

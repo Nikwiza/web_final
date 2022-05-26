@@ -1,4 +1,5 @@
 package com.example.configuration;
+import com.example.dto.StatusRestorana;
 import com.example.entity.*;
 import com.example.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +98,7 @@ public class DatabaseConfiguration {
         siki.getArtikli().add(krofna);
         siki.getArtikli().add(sok_jabuka);
         siki.getArtikli().add(jelen_pivo);
+        siki.setStatus(StatusRestorana.RADI);
         restoranRepository.save(siki);
 
         //Stavke

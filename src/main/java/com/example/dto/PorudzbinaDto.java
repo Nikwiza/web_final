@@ -10,6 +10,8 @@ import javax.persistence.*;
 
 public class PorudzbinaDto {
 
+    private UUID uuid;
+
     private Set<Stavka> stavke = new HashSet<>();
 
     private RestoranDto restoran;
@@ -20,7 +22,7 @@ public class PorudzbinaDto {
 
     private KorisnikDto kupac; //Mozda napraviti neki KupacDto ako treba da se ispise tip kupca
 
-    Status status;
+    private Status status;
 
 
     public PorudzbinaDto() {
@@ -33,8 +35,14 @@ public class PorudzbinaDto {
         this.cena = p.getCena();
         this.kupac = new KorisnikDto(p.getKupac());
         this.status = p.getStatus();
+        this.uuid = p.getUuid();
     }
 
+    public PorudzbinaDto(Set<Stavka> stavke, RestoranDto restoran, float cena) {
+        this.stavke = stavke;
+        this.restoran = restoran;
+        this.cena = cena;
+    }
 
     public Set<Stavka> getStavke() {
         return stavke;

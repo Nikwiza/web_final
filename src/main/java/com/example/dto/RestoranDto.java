@@ -16,6 +16,8 @@ public class RestoranDto {
 
     private Set<Lokacija> lokacije;
 
+    private StatusRestorana status;
+
     public RestoranDto() {
     }
 
@@ -23,6 +25,7 @@ public class RestoranDto {
         this.naziv = restoran.getNaziv();
         this.tip_restorana = restoran.getTip_restorana();
         this.lokacije = restoran.getLokacija();
+        this.status = restoran.getStatus();
     }
 
     public String getNaziv() {
@@ -47,5 +50,13 @@ public class RestoranDto {
 
     public void setLokacije(Set<Lokacija> lokacije) {
         this.lokacije = lokacije;
+    }
+
+    public StatusRestorana getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusRestorana status) {
+        this.status = status;
     }
 }

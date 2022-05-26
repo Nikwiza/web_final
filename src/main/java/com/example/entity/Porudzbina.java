@@ -51,6 +51,14 @@ public class Porudzbina implements Serializable {
         this.status = status;
     }
 
+    public Porudzbina(Set<Stavka> stavke, Restoran restoran, Date datum, float cena, Kupac kupac) {
+        this.stavke = stavke;
+        this.restoran = restoran;
+        this.datum = datum;
+        this.cena = cena;
+        this.kupac = kupac;
+        this.status = Status.OBRADA;
+    }
 
     public UUID getUuid() {
         return uuid;

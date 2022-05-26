@@ -177,5 +177,10 @@ public class RestoranService {
         return "Nije Pronadzen!";
     }
 
+    public Restoran findByName(String name){
+        Restoran restoran = restoranRepository.findByNaziv(name);
+        return restoran;
+    }
+
 
 }

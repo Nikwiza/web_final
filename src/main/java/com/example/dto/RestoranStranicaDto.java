@@ -21,14 +21,14 @@ public class RestoranStranicaDto {
     public RestoranStranicaDto() {
     }
 
-    public RestoranStranicaDto(RestoranDto restoran, float ocena, Set<KomentarDto> komentari, Set<Artikal> artikli, StatusRestorana status) {
+    public RestoranStranicaDto(RestoranDto restoran, float ocena, Set<KomentarDto> komentari, Set<Artikal> artikli) {
         this.naziv = restoran.getNaziv();
         this.tip = restoran.getTip_restorana();
         this.lokacije = restoran.getLokacije();
         this.ocena = ocena;
         this.komentari = komentari;
         this.artikli = artikli;
-        this.status = status;
+        this.status = restoran.getStatus();
     }
 
     public String getNaziv() {
