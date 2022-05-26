@@ -5,4 +5,5 @@ public class KomentarDto {
     private String user;
     private String text;
     private int ocena;
+
 }
