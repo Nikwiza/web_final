@@ -4,6 +4,7 @@ package com.example.service;
 import com.example.dto.KomentarDto;
 import com.example.dto.RestoranDto;
 import com.example.entity.*;
+import com.example.repository.ArtikalRepository;
 import com.example.repository.MenadzerRepository;
 import com.example.repository.RestoranRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class RestoranService {
 
     @Autowired
     MenadzerRepository menadzerRepository;
+
+    @Autowired
+    ArtikalRepository artikalRepository;
 
     @Autowired
     KomentarService komentarService;
@@ -100,6 +104,7 @@ public class RestoranService {
             return "Vi ne posedujete restoran";
         }
         Set<Artikal> artikli = restoran.getArtikli();
+        //Nisam koristio repository jer mi je ovako lakse da postavljam svoje kriterijume za "Artikal postoji"
         for(Artikal a : artikli){
             if (a.getNaziv().equals(artikal.getNaziv()) &&
                 a.getKolicina() == artikal.getKolicina() &&
@@ -118,6 +123,59 @@ public class RestoranService {
 
     }
 
+    public String changeArtikal(Artikal artikal, Korisnik menadzer){
+        Restoran restoran = menadzerService.findrestoran(menadzer);
+
+        if(restoran == null){
+            return "Vi ne posedujete restoran";
+        }
+        Set<Artikal> artikli = restoran.getArtikli();
+        for(Artikal a : artikli){
+            if(a.getIdArtikla().equals(artikal.getIdArtikla())){
+                a.setCena(artikal.getCena());
+                a.setKolicina(artikal.getKolicina());
+                a.setNaziv(artikal.getNaziv());
+                a.setOpis(artikal.getOpis());
+                a.setTip(artikal.getTip());
+
+                restoran.setArtikli(artikli);
+                restoranRepository.save(restoran);
+
+                return "Uspesno promenjen artikal!";
+            }
+        }
+        return "Artikal sa tim ID nije pronadjen u Vasem restoranu";
+
+    }
+
+    public Artikal findArtikal(Long id, Korisnik menadzer){
+        //todo: delete the bottom
+//        Artikal artikal = new Artikal(test, 234, "Voce", 3, "Nije lose");
+
+        Restoran restoran = menadzerService.findrestoran(menadzer);
+        Set<Artikal> artikli = restoran.getArtikli();
+        for(Artikal a : artikli){
+            if(a.getIdArtikla().equals(id)){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public String removeArtikal(Long id, Korisnik menadzer){
+        Restoran restoran = menadzerService.findrestoran(menadzer);
+        Set<Artikal> artikli = restoran.getArtikli();
+        for(Artikal a : artikli){
+            if(a.getIdArtikla().equals(id)){
+                artikalRepository.delete(a);
+                artikli.remove(a);
+                restoran.setArtikli(artikli);
+                restoranRepository.save(restoran);
+                return "Uspesno uklonjen!";
+            }
+        }
+        return "Nije Pronadzen!";
+    }
 
 
 }

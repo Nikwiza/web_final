@@ -78,4 +78,37 @@ public class RestoranRestController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/artikal/{id}")
+    public ResponseEntity<Artikal> getartikal(@PathVariable(value = "id")Long id, HttpSession session)
+    {
+        Korisnik logovaniKorisnik = (Menadzer)session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        Artikal artikal = restoranService.findArtikal(id, logovaniKorisnik);
+        if(artikal == null){
+            return new ResponseEntity("Nemate taj artikal u restoranu", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(artikal);
+    }
+    @PostMapping("/artikal/{id}")
+    public ResponseEntity<String> change (@RequestBody Artikal artikal, HttpSession session){
+        Korisnik logovaniKorisnik = (Menadzer)session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String response = restoranService.changeArtikal(artikal, logovaniKorisnik);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/artikal/{id}/remove")
+    public ResponseEntity<String> remove (@PathVariable(value = "id")Long id, HttpSession session) {
+        Korisnik logovaniKorisnik = (Menadzer) session.getAttribute("korisnik");
+        if (logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String response = restoranService.removeArtikal(id, logovaniKorisnik);
+        return ResponseEntity.ok(response);
+    }
+
 }

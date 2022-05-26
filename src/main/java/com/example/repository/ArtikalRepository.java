@@ -19,4 +19,5 @@ import java.util.Set;
 
 @Repository
 public interface ArtikalRepository extends JpaRepository<Artikal, Long> {
+    public Artikal getById(Long id);
 }
