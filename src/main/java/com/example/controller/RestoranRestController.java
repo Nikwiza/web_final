@@ -1,18 +1,15 @@
 package com.example.controller;
 
 import com.example.dto.*;
-import com.example.entity.Artikal;
-import com.example.entity.Restoran;
+import com.example.entity.*;
 import com.example.repository.RestoranRepository;
 import com.example.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Set;
 
@@ -71,5 +68,14 @@ public class RestoranRestController {
         return ResponseEntity.ok(restoranDto);
     }
 
+    @PostMapping("/add/artikal")
+    public ResponseEntity<String> addArtikal (@RequestBody Artikal artikal, HttpSession session){
+        Korisnik logovaniKorisnik = (Menadzer)session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String response = restoranService.addArtikal(artikal, logovaniKorisnik);
+        return ResponseEntity.ok(response);
+    }
 
 }

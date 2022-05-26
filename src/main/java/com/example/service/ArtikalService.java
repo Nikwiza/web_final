@@ -18,4 +18,5 @@ public class ArtikalService {
         Set<Artikal> artikli = restoran.getArtikli();
         return artikli;
     }
+
 }

@@ -2,25 +2,21 @@ package com.example.controller;
 
 
 import com.example.dto.PorudzbinaDto;
-import com.example.dto.RestoranDto;
 import com.example.entity.*;
 import com.example.service.MenadzerService;
-import com.example.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Set;
 
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-public class MenadzerRestoController {
+public class MenadzerRestController {
     @Autowired
     MenadzerService menadzerService;
 

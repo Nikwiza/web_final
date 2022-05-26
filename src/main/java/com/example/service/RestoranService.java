@@ -3,12 +3,11 @@ package com.example.service;
 
 import com.example.dto.KomentarDto;
 import com.example.dto.RestoranDto;
-import com.example.entity.Artikal;
-import com.example.entity.Lokacija;
-import com.example.entity.Restoran;
+import com.example.entity.*;
 import com.example.repository.MenadzerRepository;
 import com.example.repository.RestoranRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +30,10 @@ public class RestoranService {
 
     @Autowired
     LokacijaService lokacijaService;
+
+    @Autowired
+    MenadzerService menadzerService;
+
 
     //Finds all the restaurants in the DB, turns them into restaurantsDTO and sends them back.
 
@@ -89,5 +92,32 @@ public class RestoranService {
         }
         return null;
     }
+
+    public String addArtikal(Artikal artikal, Korisnik menadzer){
+        Restoran restoran = menadzerService.findrestoran(menadzer);
+
+        if(restoran == null){
+            return "Vi ne posedujete restoran";
+        }
+        Set<Artikal> artikli = restoran.getArtikli();
+        for(Artikal a : artikli){
+            if (a.getNaziv().equals(artikal.getNaziv()) &&
+                a.getKolicina() == artikal.getKolicina() &&
+                a.getTip().equals(artikal.getTip())) {
+
+                return "Ovaj artikal postoji";
+            }
+            if(a.getIdArtikla() == artikal.getIdArtikla()){
+                return "Ovaj ID vec postoji";
+            }
+        }
+        artikli.add(artikal);
+        restoran.setArtikli(artikli);
+        restoranRepository.save(restoran);
+        return "Uspesno dodat artikal";
+
+    }
+
+
 
 }
