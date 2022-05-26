@@ -120,6 +120,10 @@ public class DatabaseConfiguration {
         menadzer_1.setRestoran(siki);
         menadzerRepository.save(menadzer_1);
 
+        //Dodavanje komentara
+        Komentar komentar = new Komentar(dunja, siki, "Nije lose, samo ima puno soje u pljeskavicama", 4);
+        komentarRepository.save(komentar);
+
 
         return true;
     }

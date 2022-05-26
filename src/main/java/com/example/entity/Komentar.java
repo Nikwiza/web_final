@@ -19,11 +19,12 @@ public class Komentar implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idKomentar;
 
-    @ManyToOne(cascade = CascadeType.ALL)//TODO: Test
+    @ManyToOne //Isti problem sa cascade ovde
     @JoinColumn(name = "Kupac_comment", referencedColumnName = "idKorisnika")
     private Kupac kupac;
 
-    @ManyToOne(cascade = CascadeType.ALL) //todo: Test
+//Zbog specifikacije zadatka ostavljam ovde jednosmernu vezu, ali najbolje bi bilo da Restoran ima listu komentara, ovako ne mozemo cascade all
+    @ManyToOne //todo: Figure out how to delete comments when rest is deleted
     @JoinColumn(name = "restaurant_comments", referencedColumnName = "idRestorana")
     private Restoran restoran;
 

@@ -1,5 +1,6 @@
 package com.example.dto;
 
+import com.example.entity.Artikal;
 import com.example.entity.Komentar;
 import com.example.entity.Lokacija;
 import com.example.entity.Restoran;
@@ -7,22 +8,20 @@ import com.example.entity.Restoran;
 import java.util.List;
 import java.util.Set;
 
-enum Status{RADI, NE_RADI};
-//todo: Finish
 
 public class RestoranStranicaDto {
     private String naziv;
     private String tip;
     private Set<Lokacija> lokacije;
     private float ocena;
-    private Status status;
+    private StatusRestorana status;
     private Set<KomentarDto> komentari;
-    private Set<ArtikalDto> artikli;
+    private Set<Artikal> artikli;
 
     public RestoranStranicaDto() {
     }
 
-    public RestoranStranicaDto(RestoranDto restoran, float ocena, Set<KomentarDto> komentari, Set<ArtikalDto> artikli, Status status) {
+    public RestoranStranicaDto(RestoranDto restoran, float ocena, Set<KomentarDto> komentari, Set<Artikal> artikli, StatusRestorana status) {
         this.naziv = restoran.getNaziv();
         this.tip = restoran.getTip_restorana();
         this.lokacije = restoran.getLokacije();
@@ -64,11 +63,11 @@ public class RestoranStranicaDto {
         this.ocena = ocena;
     }
 
-    public Status getStatus() {
+    public StatusRestorana getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(StatusRestorana status) {
         this.status = status;
     }
 
@@ -80,11 +79,11 @@ public class RestoranStranicaDto {
         this.komentari = komentari;
     }
 
-    public Set<ArtikalDto> getArtikli() {
+    public Set<Artikal> getArtikli() {
         return artikli;
     }
 
-    public void setArtikli(Set<ArtikalDto> artikli) {
+    public void setArtikli(Set<Artikal> artikli) {
         this.artikli = artikli;
     }
 }

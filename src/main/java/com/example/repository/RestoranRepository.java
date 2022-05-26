@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import com.example.entity.Lokacija;
 import com.example.entity.Restoran;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

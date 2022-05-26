@@ -1,6 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.RestoranDto;
+import com.example.dto.*;
+import com.example.entity.Artikal;
 import com.example.entity.Restoran;
 import com.example.repository.RestoranRepository;
 import com.example.service.RestoranService;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,15 +32,18 @@ public class RestoranRestController {
     }
 
     @GetMapping("/restoran/{ime}")
-    //todo: Napraviti jos jedan restoran dto, ili samo prepraviti onaj postojeci, pa cemo da menjamo prikaz
-    public ResponseEntity<RestoranDto> restoran(@PathVariable (value = "ime") String ime){
+    public ResponseEntity<RestoranStranicaDto> restoran(@PathVariable (value = "ime") String ime){
         Restoran restoran = restoranRepository.findByNaziv(ime);
         if(restoran == null){
             return new ResponseEntity("Restoran nije pronadjzen", HttpStatus.NOT_FOUND);
         }
-        RestoranDto restoranDto = new RestoranDto(restoran);
-        return ResponseEntity.ok(restoranDto);
 
+        Set<KomentarDto> komentari = restoranService.komentari(restoran);
+        Set<Artikal> artikli = restoranService.artikli(restoran);
+        float ocena = restoranService.ocena(restoran);
+        RestoranDto restoranDto = new RestoranDto(restoran);
+        RestoranStranicaDto restoranStranicaDto = new RestoranStranicaDto(restoranDto, ocena, komentari, artikli, StatusRestorana.RADI); //Todo: dodati nacin da se menja status
+        return ResponseEntity.ok(restoranStranicaDto);
     }
 
     @GetMapping("/search/{ime}")
@@ -55,6 +60,15 @@ public class RestoranRestController {
     public ResponseEntity<List<RestoranDto>> findbytiprestorana(@PathVariable(value = "tip") String tip){
         List<RestoranDto>restorani = restoranService.restorani_tip(tip);
         return ResponseEntity.ok(restorani);
+    }
+
+    @GetMapping("/search/lokacija")
+    public ResponseEntity<RestoranDto> findbylokacija(@RequestBody String lokacija){
+        RestoranDto restoranDto = restoranService.restorani_lokacija(lokacija);
+        if(restoranDto == null){
+            return new ResponseEntity("Nije validna lokacija", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(restoranDto);
     }
 
 
