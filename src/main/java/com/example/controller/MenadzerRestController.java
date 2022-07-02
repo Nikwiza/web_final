@@ -22,7 +22,7 @@ public class MenadzerRestController {
 
     @GetMapping("/menadzer/restoran")
     public ResponseEntity<Restoran> mojrestoran(HttpSession session){
-        Korisnik logovaniKorisnik = (Menadzer)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -32,7 +32,7 @@ public class MenadzerRestController {
 
     @GetMapping("/menadzer/restoran/porudzbine")
     public ResponseEntity<Set<PorudzbinaDto>> mojeporudzbiine(HttpSession session) {
-        Korisnik logovaniKorisnik = (Menadzer) session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if (logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }

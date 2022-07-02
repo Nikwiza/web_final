@@ -2,6 +2,7 @@ package com.example.service;
 
 
 import com.example.dto.KorisnikDto;
+import com.example.dto.StatusRestorana;
 import com.example.entity.Korisnik;
 import com.example.entity.Menadzer;
 import com.example.entity.Restoran;
@@ -37,6 +38,7 @@ public class AdminService {
     }
 
     public void napravi_restoran(Restoran restoran){
+        restoran.setStatus(StatusRestorana.NE_RADI);
         restoranRepository.save(restoran);
     }
 

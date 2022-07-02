@@ -27,7 +27,7 @@ public class PorudzbinaRestController {
 
     @GetMapping("/porudzbine")
     public ResponseEntity<Set<PorudzbinaDto>> getPorudzbine(HttpSession session){
-        Korisnik logovaniKorisnik = (Kupac)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.KUPAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -37,7 +37,7 @@ public class PorudzbinaRestController {
 
     @GetMapping("/delivery")
     public ResponseEntity<Set<PorudzbinaDto>> getPorudzbineDelivery(HttpSession session){
-        Korisnik logovaniKorisnik = (Dostavljac)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.DOSTAVLJAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -48,7 +48,7 @@ public class PorudzbinaRestController {
     @PostMapping("/korpa")
     //Znam da bi se cena trebala racunati da ne bi doslo do toga da je neko promeni u requestu, ali tu takodje ima posla
     public ResponseEntity<String> korpa(@RequestBody PorudzbinaDto porudzbinaDto, HttpSession session){
-        Korisnik logovaniKorisnik = (Dostavljac)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.KUPAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -59,7 +59,7 @@ public class PorudzbinaRestController {
 
     @PostMapping("/porudzbina/odobri")
     public ResponseEntity<String> odobri(@RequestBody UUID uuid, HttpSession session){
-        Korisnik logovaniKorisnik = (Dostavljac)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -69,7 +69,7 @@ public class PorudzbinaRestController {
 
     @PostMapping("/porudzbina/prosledi")
     public ResponseEntity<String> prosledi(@RequestBody UUID uuid, HttpSession session){
-        Korisnik logovaniKorisnik = (Dostavljac)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -79,7 +79,7 @@ public class PorudzbinaRestController {
 
     @PostMapping("/porudzbina/preuzmi")
     public ResponseEntity<String> preuzmi(@RequestBody UUID uuid, HttpSession session){
-        Korisnik logovaniKorisnik = (Dostavljac)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.DOSTAVLJAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -89,7 +89,7 @@ public class PorudzbinaRestController {
 
     @PostMapping("/porudzbina/dostavi")
     public ResponseEntity<String> dostavi(@RequestBody UUID uuid, HttpSession session){
-        Korisnik logovaniKorisnik = (Dostavljac)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.DOSTAVLJAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }

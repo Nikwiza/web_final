@@ -70,7 +70,7 @@ public class RestoranRestController {
 
     @PostMapping("/add/artikal")
     public ResponseEntity<String> addArtikal (@RequestBody Artikal artikal, HttpSession session){
-        Korisnik logovaniKorisnik = (Menadzer)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -81,7 +81,7 @@ public class RestoranRestController {
     @GetMapping("/artikal/{id}")
     public ResponseEntity<Artikal> getartikal(@PathVariable(value = "id")Long id, HttpSession session)
     {
-        Korisnik logovaniKorisnik = (Menadzer)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik)session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -93,7 +93,7 @@ public class RestoranRestController {
     }
     @PostMapping("/artikal/{id}")
     public ResponseEntity<String> change (@RequestBody Artikal artikal, HttpSession session){
-        Korisnik logovaniKorisnik = (Menadzer)session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
@@ -103,7 +103,7 @@ public class RestoranRestController {
 
     @DeleteMapping("/artikal/{id}/remove")
     public ResponseEntity<String> remove (@PathVariable(value = "id")Long id, HttpSession session) {
-        Korisnik logovaniKorisnik = (Menadzer) session.getAttribute("korisnik");
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if (logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
