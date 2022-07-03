@@ -32,13 +32,18 @@ public class KomentarService {
         Set<Komentar> komentari = komentarRepository.getByRestoran(restoran);
         for(Komentar k : komentari){
             brKom++;
-            zbirOcena = k.getOcena();
+            zbirOcena += k.getOcena();
         }
         if(brKom == 0){
             return 0;
         }
         prosekOcena = zbirOcena/brKom;
         return prosekOcena;
+    }
+
+    public boolean saveKomentar (Komentar komentar){
+        komentarRepository.save(komentar);
+        return true;
     }
 
 }

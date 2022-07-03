@@ -222,5 +222,18 @@ public class RestoranService {
         return restoran;
     }
 
+    public String removeRestoran (String name){
+        Restoran restoran = restoranRepository.findByNaziv(name);
+        if(restoran == null){
+            return "Nije validan restoran !";
+        }
+        String naziv = restoran.getNaziv();
+        naziv = "[NIJE AKTIVAN]" + naziv;
+        restoran.setNaziv(naziv);
+        restoran.setStatus(StatusRestorana.NE_RADI);
+        restoranRepository.save(restoran);
+        return "Restoran obrisan!!";
+    }
+
 
 }

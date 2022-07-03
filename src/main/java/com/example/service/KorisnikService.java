@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Optional;
@@ -49,6 +50,21 @@ public class KorisnikService {
         return "Korisnicko ime vec postoji";
 
 
+    }
+
+    public List<KorisnikDto> pretragaKorisnika(String korisnik){
+        List<Korisnik> korisnici = korisnikRepository.findAll();
+        List<KorisnikDto> korisnikDtos = new ArrayList<>();
+        if(korisnici == null){
+            return null;
+        }
+        for(Korisnik k : korisnici){
+            if(k.getIme().contains(korisnik) || k.getKorisnicko().contains(korisnik) || k.getPrezime().contains(korisnik)){
+                KorisnikDto temp = new KorisnikDto(k);
+                korisnikDtos.add(temp);
+            }
+        }
+        return korisnikDtos;
     }
 
 

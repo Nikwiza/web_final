@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.KomentarDto;
 import com.example.dto.PorudzbinaDto;
 import com.example.dto.RestoranDto;
 import com.example.dto.StavkaDto;
@@ -27,6 +28,9 @@ public class PorudzbinaService {
 
     @Autowired
     ArtikalService artikalService;
+
+    @Autowired
+    KomentarService komentarService;
 
     public Set<PorudzbinaDto> poruzbineKorisnik (Korisnik korisnik){
         Kupac kupac = kupacService.findKupac(korisnik);
@@ -148,8 +152,32 @@ public class PorudzbinaService {
         if(porudzbina == null){
             return "Nije validna porudzbina";
         }
+        if(porudzbina.getStatus() != Status.OBRADA){
+            return "Ova narudzbina nije u obradi";
+        }
         porudzbina.setStatus(Status.U_PRIPREMI);
         porudzbinaRepository.save(porudzbina);
+        return "Uspesno izvrseno!";
+    }
+
+    public String komentarisi(Korisnik korisnik, UUID uuid, KomentarDto komentar){
+        Porudzbina porudzbina = porudzbinaRepository.getById(uuid);
+        Kupac kupac = kupacService.findKupac(korisnik);
+
+        if(korisnik == null || porudzbina == null)
+        {
+            return "Doslo je do greske!!";
+        }
+
+        if(porudzbina.getStatus()!= Status.DOSTAVLJENA){
+            return "Porudzbina nije dostavljena!";
+        }
+
+        if(!porudzbina.getKupac().equals(kupac)){
+            return "Nije vasa porudzbina!";
+        }
+        Komentar komentar1 = new Komentar(kupac, porudzbina.getRestoran(), komentar.getText(), komentar.getOcena());
+        komentarService.saveKomentar(komentar1);
         return "Uspesno izvrseno!";
     }
 
@@ -158,17 +186,28 @@ public class PorudzbinaService {
         if(porudzbina == null){
             return "Nije validna porudzbina";
         }
+        if(porudzbina.getStatus() != Status.U_PRIPREMI){
+            return "Ova narudzbina nije u pripremi";
+        }
         porudzbina.setStatus(Status.CEKA_DOSTAVLJACA);
         porudzbinaRepository.save(porudzbina);
         return "Uspesno izvrseno!";
     }
 
-    public String preuzmi(UUID uuid){
+    public String preuzmi(UUID uuid, Korisnik korisnik){
         Porudzbina porudzbina = porudzbinaRepository.getById(uuid);
+        Dostavljac dostavljac = dostavljacService.findDostavljac(korisnik);
         if(porudzbina == null){
             return "Nije validna porudzbina";
         }
+        if(porudzbina.getStatus() != Status.CEKA_DOSTAVLJACA){
+            return "Ova narudzbina nije spremna!";
+        }
         porudzbina.setStatus(Status.U_TRANSPORTU);
+        Set<Porudzbina> temp = dostavljac.getPorudzbine();
+        temp.add(porudzbina);
+        dostavljac.setPorudzbine(temp);
+        dostavljacService.saveDostavljac(dostavljac);
         porudzbinaRepository.save(porudzbina);
         return "Uspesno izvrseno!";
     }
@@ -177,6 +216,9 @@ public class PorudzbinaService {
         Porudzbina porudzbina = porudzbinaRepository.getById(uuid);
         if(porudzbina == null){
             return "Nije validna porudzbina";
+        }
+        if(porudzbina.getStatus() != Status.U_TRANSPORTU){
+            return "Ova narudzbina nije poslata";
         }
         porudzbina.setStatus(Status.DOSTAVLJENA);
         Kupac kupac = porudzbina.getKupac();

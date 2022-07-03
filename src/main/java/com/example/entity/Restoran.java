@@ -29,7 +29,7 @@ public class Restoran implements Serializable {
     @Column
     private StatusRestorana status;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)  //Creates Restoran_artikli table that stores what articles a restaurant has
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)  //Creates Restoran_artikli table that stores what articles a restaurant has
         private Set<Artikal> artikli = new HashSet<>();
 
 

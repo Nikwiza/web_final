@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.dto.KomentarDto;
 import com.example.dto.PorudzbinaDto;
 import com.example.dto.RestoranDto;
 import com.example.dto.StavkaDto;
@@ -25,6 +26,19 @@ public class PorudzbinaRestController {
     @Autowired
     PorudzbinaService porudzbinaService;
 
+
+    @PostMapping("/komentar")
+    public ResponseEntity<String> komentarisi(@RequestBody KomentarDto komentar, HttpSession session){
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.KUPAC) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String suuid = komentar.getUuid().replaceFirst("(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5").toString();
+        System.out.println(suuid);
+        UUID uuid = UUID.fromString(suuid);
+        String response = porudzbinaService.komentarisi(logovaniKorisnik, uuid, komentar);
+        return ResponseEntity.ok(response);
+    }
     @GetMapping("/porudzbine")
     public ResponseEntity<Set<PorudzbinaDto>> getPorudzbine(HttpSession session){
         Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
@@ -58,7 +72,10 @@ public class PorudzbinaRestController {
     }
 
     @PostMapping("/porudzbina/odobri")
-    public ResponseEntity<String> odobri(@RequestBody UUID uuid, HttpSession session){
+    public ResponseEntity<String> odobri(@RequestBody String ssuuid, HttpSession session){
+        String suuid = ssuuid.replaceFirst("(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5").toString();
+        System.out.println(suuid);
+        UUID uuid = UUID.fromString(suuid);
         Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
@@ -68,7 +85,10 @@ public class PorudzbinaRestController {
     }
 
     @PostMapping("/porudzbina/prosledi")
-    public ResponseEntity<String> prosledi(@RequestBody UUID uuid, HttpSession session){
+    public ResponseEntity<String> prosledi(@RequestBody String ssuuid, HttpSession session){
+        String suuid = ssuuid.replaceFirst("(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5").toString();
+        System.out.println(suuid);
+        UUID uuid = UUID.fromString(suuid);
         Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
@@ -78,17 +98,23 @@ public class PorudzbinaRestController {
     }
 
     @PostMapping("/porudzbina/preuzmi")
-    public ResponseEntity<String> preuzmi(@RequestBody UUID uuid, HttpSession session){
+    public ResponseEntity<String> preuzmi(@RequestBody String ssuuid, HttpSession session){
+        String suuid = ssuuid.replaceFirst("(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5").toString();
+        System.out.println(suuid);
+        UUID uuid = UUID.fromString(suuid);
         Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.DOSTAVLJAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
-        String response = porudzbinaService.preuzmi(uuid);
+        String response = porudzbinaService.preuzmi(uuid, logovaniKorisnik);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/porudzbina/dostavi")
-    public ResponseEntity<String> dostavi(@RequestBody UUID uuid, HttpSession session){
+    public ResponseEntity<String> dostavi(@RequestBody String ssuuid, HttpSession session){
+        String suuid = ssuuid.replaceFirst("(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5").toString();
+        System.out.println(suuid);
+        UUID uuid = UUID.fromString(suuid);
         Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.DOSTAVLJAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);

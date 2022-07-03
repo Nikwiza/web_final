@@ -108,4 +108,14 @@ public class RestoranRestController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/admin/delete/{rest}")
+    public ResponseEntity<String> deleteRest (@PathVariable(value = "rest") String restoran, HttpSession session){
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if (logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.ADMIN) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String response = restoranService.removeRestoran(restoran);
+        return ResponseEntity.ok(response);
+    }
+
 }

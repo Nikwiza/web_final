@@ -2,8 +2,11 @@ package com.example.controller;
 
 import com.example.dto.KorisnikDto;
 import com.example.dto.LoginDto;
+import com.example.dto.RestoranDto;
+import com.example.dto.SearchDto;
 import com.example.entity.Korisnik;
 import com.example.entity.Pol;
+import com.example.entity.Uloga;
 import com.example.repository.KorisnikRepository;
 import com.example.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 public class KorisnikRestController {
@@ -68,6 +72,16 @@ public class KorisnikRestController {
         Korisnik logovaniKorisnik = (Korisnik)session.getAttribute("korisnik");
         String response = korisnikService.setaccount(korisnikDto,logovaniKorisnik);
         return ResponseEntity.ok (response);
+    }
+
+    @GetMapping("/search/{korisnik}")
+    public ResponseEntity<List<KorisnikDto>> searchKorisnik(@PathVariable (value = "korisnik") String korisnik, HttpSession session){
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.ADMIN) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        List<KorisnikDto> korisnici = korisnikService.pretragaKorisnika(korisnik);
+        return ResponseEntity.ok(korisnici);
     }
 
 

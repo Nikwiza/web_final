@@ -26,4 +26,9 @@ public class DostavljacService {
         Dostavljac dostavljac = dostavljacRepository.getById(korisnik.getIdKorisnika());
         return dostavljac;
     }
+
+    public boolean saveDostavljac(Dostavljac dostavljac){
+        dostavljacRepository.save(dostavljac);
+        return true;
+    }
 }

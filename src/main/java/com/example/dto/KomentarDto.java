@@ -10,9 +10,16 @@ public class KomentarDto {
     private String text;
     private int ocena;
 
+    private String uuid;
+
     public KomentarDto() {
     }
 
+    public KomentarDto(String text, int ocena, String uuid){
+        this.text = text;
+        this.ocena = ocena;
+        this.uuid = uuid;
+    }
     public KomentarDto(Komentar komentar) {
         Kupac kupac = komentar.getKupac();
         this.user = kupac.getKorisnicko();
@@ -42,5 +49,13 @@ public class KomentarDto {
 
     public void setOcena(int ocena) {
         this.ocena = ocena;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

@@ -111,7 +111,7 @@ public class DatabaseConfiguration {
         porudzbina.setRestoran(siki);
         porudzbina.setDatum(datum1);
         porudzbina.setCena(222);
-        porudzbina.setStatus(Status.CEKA_DOSTAVLJACA);
+        porudzbina.setStatus(Status.DOSTAVLJENA);
         porudzbina.setStavke(Set.of(stavka));
         porudzbina.setKupac((Kupac) dunja);
         porudzbinaRepository.save(porudzbina);
