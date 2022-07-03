@@ -32,6 +32,11 @@ public class Stavka implements Serializable {
         this.id_stavke = id_stavke;
     }
 
+    public Stavka(Artikal artikal, int broj) {
+        this.artikal = artikal;
+        this.broj = broj;
+    }
+
     public int getBroj() {
         return broj;
     }

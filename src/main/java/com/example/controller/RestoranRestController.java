@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,29 +44,15 @@ public class RestoranRestController {
         return ResponseEntity.ok(restoranStranicaDto);
     }
 
-    @GetMapping("/search/{ime}")
-    public ResponseEntity<RestoranDto> findbyime(@PathVariable(value = "ime") String ime){ //todo: lista sa contains
-        Restoran restoran = restoranRepository.findByNaziv(ime);
-        if(restoran == null){
+    @GetMapping("/search")
+    public ResponseEntity<List<RestoranDto>> findbyime(@RequestBody SearchDto data, HttpSession session){ //todo: lista sa contains
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik"); //Da bi potencijalno pratili pretrazivanja
+        List<RestoranDto> restoranilok = restoranService.search(data);
+        if(restoranilok.isEmpty()){
             return new ResponseEntity("Nije pronadjen ovaj restoran", HttpStatus.NOT_FOUND);
         }
-        RestoranDto restoranDto = new RestoranDto(restoran);
-        return ResponseEntity.ok(restoranDto);
-    }
 
-    @GetMapping("/search/tip/{tip}")
-    public ResponseEntity<List<RestoranDto>> findbytiprestorana(@PathVariable(value = "tip") String tip){
-        List<RestoranDto>restorani = restoranService.restorani_tip(tip);
-        return ResponseEntity.ok(restorani);
-    }
-
-    @GetMapping("/search/lokacija")
-    public ResponseEntity<RestoranDto> findbylokacija(@RequestBody String lokacija){
-        RestoranDto restoranDto = restoranService.restorani_lokacija(lokacija);
-        if(restoranDto == null){
-            return new ResponseEntity("Nije validna lokacija", HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(restoranDto);
+        return ResponseEntity.ok(restoranilok);
     }
 
     @PostMapping("/add/artikal")
@@ -98,6 +85,16 @@ public class RestoranRestController {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
         String response = restoranService.changeArtikal(artikal, logovaniKorisnik);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/toggle")
+    public ResponseEntity<String> toggle (HttpSession session){
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.MENADZER) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String response = restoranService.toggle(logovaniKorisnik);
         return ResponseEntity.ok(response);
     }
 

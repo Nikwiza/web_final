@@ -1,16 +1,16 @@
 package com.example.controller;
 
 import com.example.dto.PorudzbinaDto;
+import com.example.dto.RestoranDto;
+import com.example.dto.StavkaDto;
 import com.example.entity.*;
 import com.example.repository.PorudzbinaRepository;
 import com.example.service.PorudzbinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
 
 import javax.servlet.http.HttpSession;
@@ -47,13 +47,13 @@ public class PorudzbinaRestController {
 
     @PostMapping("/korpa")
     //Znam da bi se cena trebala racunati da ne bi doslo do toga da je neko promeni u requestu, ali tu takodje ima posla
-    public ResponseEntity<String> korpa(@RequestBody PorudzbinaDto porudzbinaDto, HttpSession session){
+    public ResponseEntity<String> korpa(@RequestBody String restoranDto, HttpSession session){
+
         Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.KUPAC) {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
-        java.util.Date date = new java.util.Date();
-        String response = porudzbinaService.purchaseMade(porudzbinaDto.getStavke(), porudzbinaDto.getRestoran(), date, porudzbinaDto.getCena(), logovaniKorisnik);
+        String response = porudzbinaService.purchaseMade(logovaniKorisnik, restoranDto);
         return ResponseEntity.ok(response);
     }
 
@@ -94,6 +94,28 @@ public class PorudzbinaRestController {
             return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
         }
         String response = porudzbinaService.dostavi(uuid);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/korpa/add")
+    public ResponseEntity<String> dodaj(@RequestBody StavkaDto stavkaDto, HttpSession session){
+
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.KUPAC) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String response = porudzbinaService.addToCart(logovaniKorisnik, stavkaDto.getArtikal(), stavkaDto.getBroj());
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/korpa/remove")
+    public ResponseEntity<String> ukloni(@RequestBody StavkaDto stavkaDto, HttpSession session){
+
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(logovaniKorisnik == null || logovaniKorisnik.getUloga() != Uloga.KUPAC) {
+            return new ResponseEntity("You are not permmitet to do that!", HttpStatus.FORBIDDEN);
+        }
+        String response = porudzbinaService.removeFromCart(logovaniKorisnik, stavkaDto);
         return ResponseEntity.ok(response);
     }
 

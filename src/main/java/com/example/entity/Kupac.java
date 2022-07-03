@@ -2,11 +2,8 @@ package com.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Date;
+import java.util.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -21,7 +18,7 @@ public class Kupac extends Korisnik implements Serializable{
 
     @OneToMany(mappedBy = "kupac", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Porudzbina> porudzbine = new HashSet<>();
+    private List<Porudzbina> porudzbine = new ArrayList<>();
 
     @Column
     private int broj_skupljenih_bodova;
@@ -45,18 +42,18 @@ public class Kupac extends Korisnik implements Serializable{
         this.pol = korisnik.pol;
     }
 
-    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Set<Porudzbina> porudzbine, int broj_skupljenih_bodova) {
+    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, List<Porudzbina> porudzbine, int broj_skupljenih_bodova) {
         super(korisnicko_ime, lozinka, ime, prezime, pol, datum_rodjenja);
         this.porudzbine = porudzbine;
         this.broj_skupljenih_bodova = broj_skupljenih_bodova;
         this.tip_kupca = tip_kupca;
     }
 
-    public Set<Porudzbina> getPorudzbine() {
+    public List<Porudzbina> getPorudzbine() {
         return porudzbine;
     }
 
-    public void setPorudzbine(Set<Porudzbina> porudzbine) {
+    public void setPorudzbine(List<Porudzbina> porudzbine) {
         this.porudzbine = porudzbine;
     }
 

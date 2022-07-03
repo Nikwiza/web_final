@@ -19,4 +19,9 @@ public class ArtikalService {
         return artikli;
     }
 
+    public Artikal findById(Long id) {
+        Artikal artikal = artikalRepository.getById(id);
+        return artikal;
+    }
+
 }

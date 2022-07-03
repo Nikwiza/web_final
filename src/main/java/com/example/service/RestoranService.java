@@ -3,6 +3,8 @@ package com.example.service;
 
 import com.example.dto.KomentarDto;
 import com.example.dto.RestoranDto;
+import com.example.dto.SearchDto;
+import com.example.dto.StatusRestorana;
 import com.example.entity.*;
 import com.example.repository.ArtikalRepository;
 import com.example.repository.MenadzerRepository;
@@ -52,15 +54,30 @@ public class RestoranService {
         return restoraniDto;
     }
 
-    public List<RestoranDto> restorani_tip(String tip_restorana){
-        List<Restoran> restorani = restoranRepository.findByTip(tip_restorana);
-        List<RestoranDto> restoranDtos = new ArrayList<>();
-        RestoranDto temp;
-        for(Restoran r : restorani) {
-        temp = new RestoranDto(r);
-        restoranDtos.add(temp);
+    public String toggle(Korisnik korisnik) {
+        Restoran restoran = menadzerService.findrestoran(korisnik);
+        if(restoran == null){
+            return "Nemate restoran!";
         }
-        return restoranDtos;
+
+        StatusRestorana status = restoran.getStatus();
+        if(status.equals(StatusRestorana.RADI)){
+            restoran.setStatus(StatusRestorana.NE_RADI);
+        }
+        else {
+            restoran.setStatus(StatusRestorana.RADI);
+        }
+        restoranRepository.save(restoran);
+        return "Uspesno promenjen status";
+    }
+
+    public List<Restoran> restorani_tip(String tip){
+        if(tip.isEmpty()){
+            List<Restoran> restorans = restoranRepository.findAll();
+            return restorans;
+        }
+        List<Restoran> restorani = restoranRepository.findByTip(tip);
+        return restorani;
     }
 
     public Set<KomentarDto> komentari(Restoran restoran){
@@ -79,22 +96,47 @@ public class RestoranService {
     }
 
 
-    public RestoranDto restorani_lokacija(String adresa){
-        Lokacija lokacija = lokacijaService.findByAdress(adresa);
-        if(lokacija == null){
-            return null;
-        }
+    public List<RestoranDto> search(SearchDto s){
         //todo: find better implementation
         //Svestan sam da ovo nije najbolja implementacija, posebno ako skejlujemo, ali nemam trenutno vremena da smisljam drugu
-        List<Restoran> restorani = restoranRepository.findAll();
+        List<Restoran> restorani = new ArrayList<>();
+        List<RestoranDto> restoraniDto = new ArrayList<>();
+        if(s.getTip().isEmpty()){
+            restorani = restoranRepository.findAll();
+        }else{
+            restorani = restoranRepository.findByTip(s.getTip());
+        }
+
+        if(restorani.isEmpty()){
+            return restoraniDto;
+        }
+
+        if(s.getLokacija().isEmpty() && s.getNaziv().isEmpty()){
+            for(Restoran r : restorani){
+                RestoranDto restoranDto = new RestoranDto(r);
+                restoraniDto.add(restoranDto);
+            }
+            return restoraniDto;
+        }
+
         for(Restoran r : restorani){
-            for(Lokacija l : r.getLokacija()){
-                if(l.equals(lokacija)){
-                    return new RestoranDto(r);
+            if(r.getNaziv().contains(s.getNaziv()) && !s.getNaziv().isEmpty()) {
+                RestoranDto restoranDto = new RestoranDto(r);
+                restoraniDto.add(restoranDto);
+            }
+            else {
+                for (Lokacija l : r.getLokacija()) {
+                    String adr = l.getAdresa();
+                    if (adr.contains(s.getLokacija()) && !s.getLokacija().isEmpty()) {
+                        RestoranDto restoranDto = new RestoranDto(r);
+                        restoraniDto.add(restoranDto);
+                        break;
+                    }
                 }
             }
+
         }
-        return null;
+            return restoraniDto;
     }
 
     public String addArtikal(Artikal artikal, Korisnik menadzer){
@@ -149,8 +191,6 @@ public class RestoranService {
     }
 
     public Artikal findArtikal(Long id, Korisnik menadzer){
-        //todo: delete the bottom
-//        Artikal artikal = new Artikal(test, 234, "Voce", 3, "Nije lose");
 
         Restoran restoran = menadzerService.findrestoran(menadzer);
         Set<Artikal> artikli = restoran.getArtikli();

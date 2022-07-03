@@ -13,4 +13,6 @@ public interface RestoranRepository extends JpaRepository<Restoran, Long> {
 
     public Restoran findByNaziv(String naziv);
     public List<Restoran> findByTip(String tip);
+    public List<Restoran> findByNazivContaining(String naziv);
+    public List<Restoran> findByTipContaining (String tip);
 }
